@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Expires" CONTENT="-1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+
+    <link href="lib_css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib_css/styles.css" rel="stylesheet">
+    <script src="lib_js/angular.min.js"></script>
+
+    <script type="text/javascript" id="injectReportDataHere">
+        var reportDataInjection={0};
+        var InputData = reportDataInjection;
+    </script>
+    <!--  read  into variable InputData -->
+    <!-- <script src="reportData.json.js"></script> -->
+    <!--  read Labels and List of Values into variable LLoV -->
+    <script src="SVK_SocialnaPoistovna.LLoV.json.js"></script>
+
+    <script src="reportModule.js"></script>
+
+    <script src="lib_js/angular-locale_sk-sk.js"></script>
+
+    <title>Sociálna poisťovňa</title>
+</head>
+<body>
+
+    <div id="reportPartialView" ng-app="SVK_SocialnaPoistovna_Detail" ng-controller="MainController" style="direction: {{lngFormat}} !important">
+        <h1>{{rptLLoV.Title}}</h1>
+
+        <!-- Request -->
+        <div id="requestedData">
+            <h3 class="printWithNext">{{rptLLoV.RequestedData}}</h3>
+
+            <h4>{{rptLLoV.Client}}</h4>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rquLLoV.ClientId}}</div>
+                <div class="col-xs-8 col-sm-9">{{rqu.BasicParam.ClientId}}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rquLLoV.ClientApproval}}</div>
+                <div class="col-xs-8 col-sm-9">{{rptLLoV["Flag" + rqu.BasicParam.ClientApproval] || rqu.BasicParam.ClientApproval}}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rquLLoV.Pin}}</div>
+                <div class="col-xs-8 col-sm-9">{{rqu.BasicParam.Pin}}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rquLLoV.Name}}</div>
+                <div class="col-xs-8 col-sm-9">{{rqu.BasicParam.Name}}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rquLLoV.Surname}}</div>
+                <div class="col-xs-8 col-sm-9">{{rqu.BasicParam.Surname}}</div>
+            </div>
+        </div>
+
+        <!-- Response -->
+        <div id="responseData">
+            <h3 class="printWithNext">{{rptLLoV.ReceivedData}}</h3>
+
+            <div class="row" ng-if="mtd.Created">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rptLLoV.RequestDateTime}}</div>
+                <div class="col-xs-8 col-sm-9">{{mtd.Created | date: dtFormat}}</div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-3 colTitle">{{rptLLoV.ResponseDateTime}}</div>
+                <div class="col-xs-8 col-sm-9">{{subjectDetails.responseDate | date: dtFormat}}</div>
+            </div>
+
+            <h4>{{rptLLoV.Answers}}</h4>
+
+            <div class="questions">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>1.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q1}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 1))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 1)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>2.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q2}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{subjectDetails.request.employer.employerDic}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 2))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 2)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>3.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q3a}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q3b}} {{subjectDetails.request.employment.employedFrom}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 3))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 3)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>4.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q4a}} {{subjectDetails.request.employment.employmentDays}} {{rptLLoV.days}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 4))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 4)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>5.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q5a}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q5b}} {{subjectDetails.request.employment.minBaseSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 5))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 5)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>6.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q6a}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q6b}} {{subjectDetails.request.employment.minBaseSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 6))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 6)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>7.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q7a}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q7b}} {{subjectDetails.request.employment.minBaseSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 7))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 7)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>8.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q8}} {{subjectDetails.request.employment.minBaseSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 8))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 8)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>9.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q9}} {{subjectDetails.request.employment.minBaseSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 9))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 9)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>10.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q10}} {{subjectDetails.request.employment.minBaseSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 10))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 10)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>11.</b> {{rptLLoV.q11a}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q11b}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q11c}} {{subjectDetails.request.monthsNr}} {{rptLLoV.q11d}} {{subjectDetails.request.socialSecurity.insuredDays}} {{rptLLoV.days}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 11))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 11)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>12.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q12}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 12))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 12)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>13.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q13}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 13))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 13)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>14.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q14}} {{subjectDetails.request.socialSecurity.socialSecurityAmmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 14))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 14)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>15.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q15}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 15))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 15)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>16.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q16a}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q16b}} {{subjectDetails.request.monthsNr}} {{rptLLoV.q16c}} {{subjectDetails.request.employment.avgBaseSalaryInMonthsAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 16))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 16)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>17.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q17a}} {{subjectDetails.request.monthsNr}} {{rptLLoV.q17b}} {{subjectDetails.request.employment.avgBaseSalaryInMonthsAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 17))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 17)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>18.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q18}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 18))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 18)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>19.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q19a}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q19b}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 19))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 19)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>20.</b> {{rptLLoV.Has}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q20a}} {{subjectDetails.request.monthsNr}} {{rptLLoV.q20b}} {{subjectDetails.request.employment.alternativeSalaryAmount | currency:"EUR"}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 20))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 20)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>21.</b> {{rptLLoV.Is}} {{rptLLoV.q21a}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q21b}} {{rptLLoV.with}} {{rptLLoV.RegistrationNumber}} {{subjectDetails.request.employer.employerIco}} {{rptLLoV.and}} {{rptLLoV.TaxpayerNumber}} {{rptLLoV.q21c}} {{subjectDetails.request.socialSecurity.signedUpDays}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 21))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 21)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>22.</b> {{rptLLoV.Was}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q22}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 22))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 22)}}</div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 colTitle"><b>23.</b> {{rptLLoV.Is}} {{subjectDetails.clientName}} {{subjectDetails.clientSurname}} {{rptLLoV.q23}}?</div>
+                    <div class="col-xs-12 col-sm-4" ng-class="getAnswerClass(findAnswer(socialSecurityResponse.DataArea.Question, 23))">{{findAnswerText(socialSecurityResponse.DataArea.Question, 23)}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

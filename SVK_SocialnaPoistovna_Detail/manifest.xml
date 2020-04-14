@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report Version="1.0" Name="SayHelloAngularReports" Type="AngularReports">
+  <Data FileName="reportSampleData.xml" />
+  <Schema FileName="reportSchema.xsd" />
+  <Template FileName="reportTemplate.zip" />
+</Report>

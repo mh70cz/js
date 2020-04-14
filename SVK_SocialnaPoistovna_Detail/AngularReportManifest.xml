@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AngularReportManifestModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <reportName>SVK_SocialnaPoistovna_Detail</reportName>
+  <reportType />
+  <reportArchiveType>ZIP</reportArchiveType>
+  <vesrion>1</vesrion>
+  <reportMainHtmlTemplateFileName>SVK_SocialnaPoistovna.server.html</reportMainHtmlTemplateFileName>
+  <hasEmbeddedTemplate>false</hasEmbeddedTemplate>
+  <embeddedReportTemplateFileName />
+  <reportSampleJsonDataFile>SocPoistSampleResponse.json.js</reportSampleJsonDataFile>
+  <reportDataPlaceHolder>reportDataInjection={0}</reportDataPlaceHolder>
+  <reportDataPlaceHolderFileName />
+  <reportPartialViewTagId>reportPartialView</reportPartialViewTagId>
+  <reportResourcesFolder />
+  <reportParamentersJonStr />
+  <reportParamentersPlaceHolder />
+  <reportParamentersFileName />
+  <PhantomJsScriptName>PhantomScript.js</PhantomJsScriptName>
+  <PhantomJsResourceFolder>phantomjs_scripts</PhantomJsResourceFolder>
+</AngularReportManifestModel>
