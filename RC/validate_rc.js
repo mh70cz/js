@@ -1,22 +1,14 @@
 function validate_rc(rc_raw){
-    let rc = rc_raw.trim();
-    rc = rc.replace("/", "");
-    rc = rc.replace(" ", "");
-
-    let rc_obj = {};
-    rc_obj.rc_raw = rc_raw;
-    rc_obj.rc = rc;
-    rc_obj.valid = false;
-    rc_obj.dob = "";
-    rc_obj.sex = "";
-    rc_obj.note = "";
     
     function check_get_date(rc){
         let year = parseInt(rc.slice(0,2));
         if (rc.length == 9){
+            if (year >= 54){  // od 1.1. 1954 check digit -> RC ma 10 cislic
+                return [false, ""];
+            }
             year += 1900;
         }
-        else if (year > 54) {
+        else if (year >= 54) {
             year += 1900;
         } else {
             year += 2000;
@@ -60,6 +52,33 @@ function validate_rc(rc_raw){
     
     }
 
+    function check_digit(rc){
+        const rc_base = parseInt(rc.slice(0,9));
+        const rc_check = parseInt(rc.slice(9,10));
+        let reminder = rc_base % 11;
+        if (reminder == 10){
+            reminder = 0;
+        }
+        if (reminder == rc_check){
+            return true;
+        } else {
+            return false;
+        }
+    }    
+    
+    let rc = rc_raw.trim();
+    rc = rc.replace("/", "");
+    rc = rc.replace(" ", "");
+
+    let rc_obj = {};
+    rc_obj.rc_raw = rc_raw;
+    rc_obj.rc = rc;
+    rc_obj.valid = false;
+    rc_obj.dob = "";
+    rc_obj.sex = "";
+    rc_obj.note = "";
+    
+
     if (isNaN(rc)){
         rc_obj.note = "Not a number";
         return rc_obj;
@@ -91,25 +110,24 @@ function validate_rc(rc_raw){
     }
 
 
-    
+    if (rc.length == 10 ) {
+         
+        if (check_digit(rc)){
+            rc_obj.valid = true;
+        } else {
+            rc_obj.valid = false;
+            rc_obj.dob = "";
+            rc_obj.sex = "";
+            rc_obj.note += " Wrong check digit" ;
+        }
+
+    } else {
+        rc_obj.valid = true;
+        
+    }
     
 
 
     return rc_obj;
 }
 
-let rcs_raw = [
-    "7003150044",
-    "700315/0044",
-    " 700315/0044 ",
-    "x7003150044",
-    "70031500445",
-    "70031500",
-];
-
-for (let rc_raw of rcs_raw) { 
-    let rc = validate_rc(rc_raw);
-    console.log(rc_raw); 
-    console.log(rc);
-    console.log("\n") 
- }

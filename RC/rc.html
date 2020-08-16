@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="./validate_rc.js" ></script>
+        <script>
+            function call_validator(){
+                //console.log("validator called");
+                document.getElementById("is_valid").innerHTML = '';
+                document.getElementById("validation_results").innerHTML = '';
+
+                let rc_raw;
+                rc_raw = document.getElementById("in_rc").value;
+                
+                //console.log(rc_raw);
+
+                rc_obj = validate_rc(rc_raw);
+
+                console.log(rc_obj);
+
+                let valid = rc_obj.valid;
+                let dob = rc_obj.dob;
+                let sex = rc_obj.sex;
+                let note = rc_obj.note;
+
+
+
+                if (valid){
+                    document.getElementById("is_valid").innerHTML = 'Validní';
+                    document.getElementById("is_valid").style.color = "green";
+                } else {
+                    document.getElementById("is_valid").innerHTML= 'Nevalidní';
+                    document.getElementById("is_valid").style.color = "red";
+                }
+                
+                if (dob){
+
+                    let year = dob.slice(0,4);
+                    let month = parseInt(dob.slice(5,7));
+                    let day = parseInt(dob.slice(8,10));
+                    let dob2 = day + "." + month + "." + year ; // alternativni format data narozeni
+
+                    let para = document.createElement("P");
+                    para.innerHTML = "Datum narození: " + dob + "&nbsp; &nbsp; &nbsp; " + dob2;
+                    document.getElementById("validation_results").appendChild(para);
+                }
+
+                if(sex){
+                    let para2 = document.createElement("P");
+                    para2.innerHTML = "Pohlaví: " + sex;
+                    document.getElementById("validation_results").appendChild(para2);
+                }
+
+                if(note){
+                    let para3 = document.createElement("P");
+                    para3.innerHTML = "Poznámka:  " + note;
+                    document.getElementById("validation_results").appendChild(para3);
+                }
+            }
+
+        </script>
 
     </head>
     <body>
@@ -8,10 +65,11 @@
 
         <form>
             <label for="in_rc">RC k validaci</label>
-            <input type="text" id="in_rc">
-            <br>
-            <input type="submit" value="Submit">
+            <input type="text" id="in_rc">            
+            <button type="button" onclick="call_validator()">Submit</button> <span id="is_valid"></span>
         </form>
+        <div id="validation_results"/>
+
 
     </body>
 </html>
