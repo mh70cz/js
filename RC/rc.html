@@ -61,14 +61,36 @@
 
     </head>
     <body>
-        <h2>RC</h2>
+        <h2>Validace RČ</h2>
 
         <form>
-            <label for="in_rc">RC k validaci</label>
+            <label for="in_rc">RČ k validaci</label>
             <input type="text" id="in_rc">            
-            <button type="button" onclick="call_validator()">Submit</button> <span id="is_valid"></span>
+            <button type="button" onclick="call_validator()">Validuj</button> <span id="is_valid"></span>
         </form>
         <div id="validation_results"/>
+        <br>
+        <hr>
+
+        <h2>Generování RČ</h2>
+
+        <form>
+            <label for="in_dob">Datum narození</label>
+            <input type="text" id="in_dob"> 
+            <span>&nbsp;&nbsp;</span>
+            <label for="in_ord">Pořadí</label>
+            <input type="text" id="in_ord">
+            <br> <br> 
+            <input type="radio" id="in_sex_M" name="sex" value="M">
+            <label for="in_sex_M">Muž</label><span>&nbsp;&nbsp;</span>
+            <input type="radio" id="in_sex_M" name="sex" value="F">
+            <label for="in_sex_M">Žena</label>       
+            <span>&nbsp;&nbsp;</span> 
+            <input type="checkbox" id="add20">
+            <label for="add20">  Přidej 20 k datu narození</label>
+            <br> <br>
+            <button type="button" onclick="">Generuj</button>
+        </form>
 
 
     </body>
