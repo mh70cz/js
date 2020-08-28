@@ -4,7 +4,7 @@ describe("Validete RC", function() {
     describe("trivial validation", function() {
         let rc_raw = "7003150044";
 
-        it(rc_raw + "should be valid RC", function() {            
+        it(rc_raw + "should be a valid RC", function() {            
         expect(validate_rc(rc_raw).valid).toEqual(true);
         });
     
@@ -27,7 +27,7 @@ describe("Validete RC", function() {
             "70 03150044 ",
         ];
         for (const rc_raw of rcs_raw) {
-            it(rc_raw + " should be valid RC", function() {            
+            it(rc_raw + " should be a valid RC", function() {            
             expect(validate_rc(rc_raw).valid).toEqual(true);
             });            
         }
@@ -46,13 +46,13 @@ describe("Validete RC", function() {
         ];
 
         for (const rc_raw of rcs_raw_ok) {
-            it(rc_raw + " should be valid RC", function() {            
+            it(rc_raw + " should be a valid RC", function() {            
             expect(validate_rc(rc_raw).valid).toEqual(true);
             });
         }      
 
         for (const rc_raw of rcs_raw_fail) {
-            it(rc_raw + " should NOT be valid RC", function() {            
+            it(rc_raw + " should NOT be a valid RC", function() {            
             expect(validate_rc(rc_raw).valid).toEqual(false);
             });            
         }
@@ -70,7 +70,7 @@ describe("Validete RC", function() {
             "8105183670", "5904225240"];
 
         for (const rc_raw of rcs_raw_ok) {
-            it(rc_raw + " should be valid RC", function() {            
+            it(rc_raw + " should be a valid RC", function() {            
             expect(validate_rc(rc_raw).valid).toEqual(true);
             });
         }      
@@ -84,7 +84,7 @@ describe("Validete RC", function() {
         '530230753', '131320753', '256931/852', '266611/951', '275431/456'];
 
         for (const rc_raw of rcs_raw_fail) {
-            it(rc_raw + " should NOT be valid RC", function() {            
+            it(rc_raw + " should NOT be a valid RC", function() {            
             expect(validate_rc(rc_raw).valid).toEqual(false);
             });
         }      

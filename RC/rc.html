@@ -2,6 +2,7 @@
 <html>
     <head>
         <script src="./validate_rc.js" ></script>
+        <script src="./generate_rc.js" ></script>
         <script>
             function call_validator(){
                 //console.log("validator called");
@@ -57,6 +58,84 @@
                 }
             }
 
+            function call_generator(outClipboard=false){
+                let dob_raw, order_raw; 
+                let sex = "M";
+                let add20 = false;
+
+                document.getElementById("generation_results").innerHTML = '';
+
+                dob_raw = document.getElementById("in_dob").value;
+                order_raw = document.getElementById("in_ord").value;                
+                if (document.getElementById("in_sex_F").checked ){
+                    sex = "F";
+                }
+                if (document.getElementById("add20").checked){
+                    add20 = true;
+                }
+
+                let rcObj = generate_rc(dob_raw, order_raw, sex, add20)
+
+                console.log(rcObj);
+                
+                if (rcObj.success == true){
+
+
+
+                    let para = document.createElement("P");
+                    para.innerHTML = "Rodné číslo: " +  rcObj.rc + "<br>" + 
+                    "Datum narození: " + rcObj.dob + "<br>" + 
+                    "Poznámka: " + rcObj.note ;
+                    document.getElementById("generation_results").appendChild(para);
+
+                    if (outClipboard){
+                        let ta = document.createElement("textarea");
+                        ta.setAttribute("id", "out_rc");
+                        ta.value = rcObj.rc;
+                        document.getElementById("generation_results").appendChild(ta);
+                        
+                        document.getElementById("out_rc").select();                    
+                        document.execCommand("copy");  // copy into clipboard
+                        ta.style.visibility = "hidden";
+                    }
+
+
+
+                } else {
+                    let para = document.createElement("P");
+                    para.innerHTML = "chyba při generování " + "<br>" +
+                    "Poznámka: " + rcObj.note ;
+                    document.getElementById("generation_results").appendChild(para); 
+                }                
+
+            }
+
+            function clearInitVal(idElem){
+                if (document.getElementById(idElem).style.color == "grey"){
+                    document.getElementById(idElem).style.color = "black";
+                    document.getElementById(idElem).value = "";
+                }
+            }
+
+
+
+            // https://stackoverflow.com/questions/807878/how-to-make-javascript-execute-after-page-load
+            // DOMContentLoaded vs load
+            document.addEventListener("DOMContentLoaded", function(){
+                document.getElementById("in_sex_M").checked = true;
+                let rndOrder = Math.floor((Math.random() * 999) + 10);
+                document.getElementById("in_ord").value = rndOrder;
+                document.getElementById("in_ord").style.color = "grey";
+                
+                let rndYear = Math.floor((Math.random() * 40) + 1960);
+                let rndMonth = Math.floor((Math.random() * 12) + 1);
+                let rndDay = Math.floor((Math.random() * 28) + 1);
+                let rndDate =  rndDay.toString() + "." + rndMonth.toString() + "." + rndYear.toString();
+                document.getElementById("in_dob").value = rndDate;
+                document.getElementById("in_dob").style.color = "grey";
+
+            });
+
         </script>
 
     </head>
@@ -68,7 +147,7 @@
             <input type="text" id="in_rc">            
             <button type="button" onclick="call_validator()">Validuj</button> <span id="is_valid"></span>
         </form>
-        <div id="validation_results"/>
+        <div id="validation_results"></div>
         <br>
         <hr>
 
@@ -76,20 +155,22 @@
 
         <form>
             <label for="in_dob">Datum narození</label>
-            <input type="text" id="in_dob"> 
+            <input type="text" id="in_dob" onfocus="clearInitVal('in_dob')"> 
             <span>&nbsp;&nbsp;</span>
             <label for="in_ord">Pořadí</label>
-            <input type="text" id="in_ord">
+            <input type="text" id="in_ord" onfocus="clearInitVal('in_ord')">
             <br> <br> 
             <input type="radio" id="in_sex_M" name="sex" value="M">
             <label for="in_sex_M">Muž</label><span>&nbsp;&nbsp;</span>
-            <input type="radio" id="in_sex_M" name="sex" value="F">
+            <input type="radio" id="in_sex_F" name="sex" value="F">
             <label for="in_sex_M">Žena</label>       
             <span>&nbsp;&nbsp;</span> 
             <input type="checkbox" id="add20">
             <label for="add20">  Přidej 20 k datu narození</label>
             <br> <br>
-            <button type="button" onclick="">Generuj</button>
+            <button type="button" onclick="call_generator()">Generuj</button> &nbsp; &nbsp;
+            <button type="button" onclick="call_generator(true)">Generuj + clipboard</button>
+            <div id="generation_results"></div>
         </form>
 
 
