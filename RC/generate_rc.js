@@ -58,13 +58,13 @@ function generate_rc(dob_raw, order_raw, sex="M", add20=false){
         dob = dob.slice(0, 10);
     }
 
-    console.log(isoDateMayBe, dob);
+    //console.log(isoDateMayBe, dob);
     dobSplit = dob.split("-");
     day =   parseInt(dobSplit[2]);
     month = parseInt(dobSplit[1]);
     year =  parseInt(dobSplit[0]);
 
-    console.log(dob, year, month, day );
+    //console.log(dob, year, month, day );
 
     if(year < 1900 || year > 2053){
         rcObj.note="Invalid date";
@@ -98,7 +98,7 @@ function generate_rc(dob_raw, order_raw, sex="M", add20=false){
     }
 
     rcShort = (year%100) * 10000000 + month* 100000 + day*1000 + order;
-    console.log(dob, year, month, day );
+    //console.log(dob, year, month, day );
 
        
     if (year >= 1954){
