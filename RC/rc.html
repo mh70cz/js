@@ -4,6 +4,18 @@
         <script src="./validate_rc.js" ></script>
         <script src="./generate_rc.js" ></script>
         <script>
+            function altDob(dob){
+                // dob date in yyyy-mm-dd format
+                // returns date in d.m.y
+                let year = dob.slice(0,4);
+                let month = parseInt(dob.slice(5,7));
+                let day = parseInt(dob.slice(8,10));
+                let dob_dmy = day + "." + month + "." + year ;
+                return dob_dmy ;
+
+            }
+
+
             function call_validator(){
                 //console.log("validator called");
                 document.getElementById("is_valid").innerHTML = '';
@@ -16,7 +28,7 @@
 
                 rc_obj = validate_rc(rc_raw);
 
-                console.log(rc_obj);
+                //console.log(rc_obj);
 
                 let valid = rc_obj.valid;
                 let dob = rc_obj.dob;
@@ -35,13 +47,10 @@
                 
                 if (dob){
 
-                    let year = dob.slice(0,4);
-                    let month = parseInt(dob.slice(5,7));
-                    let day = parseInt(dob.slice(8,10));
-                    let dob2 = day + "." + month + "." + year ; // alternativni format data narozeni
+                    let dob_dmy = altDob(dob) ; // alternativni format data narozeni
 
                     let para = document.createElement("P");
-                    para.innerHTML = "Datum narození: " + dob + "&nbsp; &nbsp; &nbsp; " + dob2;
+                    para.innerHTML = "Datum narození: " + dob + "&nbsp; &nbsp; &nbsp; " + dob_dmy;
                     document.getElementById("validation_results").appendChild(para);
                 }
 
@@ -76,19 +85,18 @@
 
                 let rcObj = generate_rc(dob_raw, order_raw, sex, add20)
 
-                console.log(rcObj);
+                //console.log(rcObj);
                 
                 if (rcObj.success == true){
 
-                    let year = rcObj.dob.slice(0,4);
-                    let month = parseInt(rcObj.dob.slice(5,7));
-                    let day = parseInt(rcObj.dob.slice(8,10));
-                    let dob2 = day + "." + month + "." + year ; // alternativni format data narozeni
+                    let dob_dmy = altDob(rcObj.dob) ; // alternativni format data narozeni
 
                     let para = document.createElement("P");
-                    para.innerHTML = "Rodné číslo: " +  rcObj.rc + "<br>" + 
-                    "Datum narození: " + rcObj.dob + "&nbsp; &nbsp; &nbsp; " + dob2 + "<br>" + 
-                    "Poznámka: " + rcObj.note ;
+                    para.innerHTML = "Rodné číslo: " +  rcObj.rc + "<br><br>" + 
+                    "Datum narození: " + rcObj.dob + "&nbsp; &nbsp; &nbsp; " + dob_dmy ;
+                    if(rcObj.note){
+                        para.innerHTML += ""<br>" + Poznámka: " + rcObj.note ;
+                    }                                        
                     document.getElementById("generation_results").appendChild(para);
 
                     if (outClipboard){
@@ -101,8 +109,6 @@
                         document.execCommand("copy");  // copy into clipboard
                         ta.style.visibility = "hidden";
                     }
-
-
 
                 } else {
                     let para = document.createElement("P");
