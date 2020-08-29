@@ -80,11 +80,14 @@
                 
                 if (rcObj.success == true){
 
-
+                    let year = rcObj.dob.slice(0,4);
+                    let month = parseInt(rcObj.dob.slice(5,7));
+                    let day = parseInt(rcObj.dob.slice(8,10));
+                    let dob2 = day + "." + month + "." + year ; // alternativni format data narozeni
 
                     let para = document.createElement("P");
                     para.innerHTML = "Rodné číslo: " +  rcObj.rc + "<br>" + 
-                    "Datum narození: " + rcObj.dob + "<br>" + 
+                    "Datum narození: " + rcObj.dob + "&nbsp; &nbsp; &nbsp; " + dob2 + "<br>" + 
                     "Poznámka: " + rcObj.note ;
                     document.getElementById("generation_results").appendChild(para);
 
@@ -166,7 +169,7 @@
             <label for="in_sex_M">Žena</label>       
             <span>&nbsp;&nbsp;</span> 
             <input type="checkbox" id="add20">
-            <label for="add20">  Přidej 20 k datu narození</label>
+            <label for="add20">  Přidej 20 k měsíci data narození</label>
             <br> <br>
             <button type="button" onclick="call_generator()">Generuj</button> &nbsp; &nbsp;
             <button type="button" onclick="call_generator(true)">Generuj + clipboard</button>
