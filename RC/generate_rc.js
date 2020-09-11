@@ -103,6 +103,10 @@ function generate_rc(dob_raw, order_raw, sex="M", add20=false){
        
     if (year >= 1954){
         check = rcShort % 11;
+        if (check  == 10){
+            check = 0;
+            rcObj.note="exception reminder 10 -> check digit 0";
+        }
         rc = rcShort.toString() + check.toString();
     } else {
         rc = rcShort.toString() 
