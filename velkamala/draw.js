@@ -1,31 +1,34 @@
 let words = shuffle([
-  "letadlo",
-  "raketa",
-  "buldozer",
-  "morče",
-  "hrom",
-  "blesk",
-  "bouřka",
-  "lego",
-  "bagr",
-  "fazole",
-  "bodlák",
-  "ježek",
-  "bublifuk",
-  "praha",
-  "barrandov",
-  "střelec",
-  "pěšec",
-  "gorila",
-  "jupiter",
-  "ponožky",
-  "dub",
-  "kedluben",
-  "brambora",
-  "medvěd",
-  "telefon",
-  "jinovatka",
-  "velikonoce"
+  "chodec",
+  "chocholouš",
+  "procházka",
+//   "letadlo",
+//   "raketa",
+//   "buldozer",
+//   "morče",
+//   "hrom",
+//   "blesk",
+//   "bouřka",
+//   "lego",
+//   "bagr",
+//   "fazole",
+//   "bodlák",
+//   "ježek",
+//   "bublifuk",
+//   "praha",
+//   "barrandov",
+//   "střelec",
+//   "pěšec",
+//   "gorila",
+//   "jupiter",
+//   "ponožky",
+//   "dub",
+//   "kedluben",
+//   "brambora",
+//   "medvěd",
+//   "telefon",
+//   "jinovatka",
+//   "velikonoce",
 ]);
 // const wordStr = "letadlo";
 // const word = [...wordStr]; // ToDo: mezery a ch
@@ -56,8 +59,8 @@ function generateTask() {
 
   if (cntWords < words.length) {
     let wordStr = words[cntWords];
-    word = [...wordStr]; // ToDo: mezery a ch
-    wordRnd = shuffle([...wordStr]);
+    word = strArrCH(wordStr);
+    wordRnd = shuffle(strArrCH(wordStr));
     drawLetterBlocks();
   } else {
     resDiv.innerHTML = " ****   KONEC   ***** ";
@@ -254,4 +257,36 @@ function drawLetterBlocks() {
     letterBlock.addEventListener("click", selectLetterBlockLow);
     lcRow.appendChild(letterBlock);
   }
+}
+
+function strArrCH(s) {
+  //string do pole se zachovanim ch  
+  let wordArr = [];
+
+  let i = 0;
+  while (i < s.length) {
+    //   if (wordStr[i] != "c") {
+    //     wordArr.push(wordStr[i]);
+    //     i++;
+    //     continue;
+    //   }
+
+    //posledni znak
+    if (i + 1 == s.length) {
+      wordArr.push(s[i]);
+      i++;
+      continue;
+    }
+
+    if (s[i] == "c" && s[i + 1] == "h") {
+      wordArr.push("ch");
+      i += 2;
+      continue;
+    } else {
+      wordArr.push(s[i]);
+      i++;
+      continue;
+    }
+  }
+  return wordArr;
 }
