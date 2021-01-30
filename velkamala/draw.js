@@ -1,34 +1,63 @@
 let words = shuffle([
+  "praha 5 barrandov",
+  "prase chrochtá",
+  "vítr fouká",
+  "hromy a blesky",
+  "fazole",
+  "hrách",
+  "dlouhé bidlo",
+  "sladká kobliha",
+  "černý datel",
+  "rychlá raketa",
+  "buldozer",
+  "lední medvěd",
+  "ping pong",
+  "výr velký",
+  "rys ostrovid",
+  "dobrý oběd",
   "chodec",
   "chocholouš",
   "procházka",
-//   "letadlo",
-//   "raketa",
-//   "buldozer",
-//   "morče",
-//   "hrom",
-//   "blesk",
-//   "bouřka",
-//   "lego",
-//   "bagr",
-//   "fazole",
-//   "bodlák",
-//   "ježek",
-//   "bublifuk",
-//   "praha",
-//   "barrandov",
-//   "střelec",
-//   "pěšec",
-//   "gorila",
-//   "jupiter",
-//   "ponožky",
-//   "dub",
-//   "kedluben",
-//   "brambora",
-//   "medvěd",
-//   "telefon",
-//   "jinovatka",
-//   "velikonoce",
+  "letadlo",
+  "dvě morčata",
+  "bouřka",
+  "divoký bizon",
+  "dravá ryba",
+  "lego",
+  "bagr",
+  "bodlák",
+  "ježek",
+  "bublifuk",
+  "střelec",
+  "pěšec",
+  "gorila",
+  "jupiter",
+  "noční můra",
+  "modré ponožky",
+  "starý dub",
+  "kedluben",
+  "brambora",
+  "mobilní telefon",
+  "vodní mlýn",
+  "bílý dům",
+  "gepard",
+  "tygr",
+  "jinovatka",
+  "velikonoce",
+  "duben",
+  "martin",
+  "sladké fíky",
+  "fotbalový míč",
+  "zobcová flétna",
+  "harfa",
+  "výfuk",
+  "drahý kámen",
+  "mnoho minut",
+  "tmavá noc",
+  "zelený meloun",
+  "zimní boty",
+  "hluboká studna",
+  "malý dron",
 ]);
 // const wordStr = "letadlo";
 // const word = [...wordStr]; // ToDo: mezery a ch
@@ -45,6 +74,8 @@ let cntLettersOk = 0;
 let cntLettersKo = 0;
 let cntPoints = 0;
 //let wordFinished = false;
+
+document.getElementById("btnHlp").addEventListener("click", btnToggle);
 
 generateTask();
 
@@ -92,6 +123,19 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function btnToggle(e) {
+  if (e.target) {
+    let btn = e.target;
+    if (btn.firstChild.nodeValue == "NÁPOVĚDA") {
+      btn.innerHTML = "SKRYJ NÁPOVĚDU";
+      document.getElementById("hlp").classList.remove("hide");
+    } else {
+      btn.innerHTML = "NÁPOVĚDA";
+      document.getElementById("hlp").classList.add("hide");
+    }
+  }
 }
 
 function lettersMatched() {
@@ -230,37 +274,54 @@ function selectLetterBlockLow(e) {
 function drawLetterBlocks() {
   for (let i = 0; i < word.length; i++) {
     const letter = word[i];
-    {
-      let letterBlock = document.createElement("DIV");
-      letterBlock.className = "letterBlock";
-      letterBlock.innerHTML = letter.toUpperCase();
-      ucRow.appendChild(letterBlock);
+    if (letter == " ") {
+      {
+        let letterBlock = document.createElement("DIV");
+        letterBlock.classList.add("letterBlock", "space");
+        ucRow.appendChild(letterBlock);
+      }
+      {
+        let letterBlock = document.createElement("DIV");
+        letterBlock.classList.add("letterBlock", "space", "matched");
+        letterBlock.innerHTML = "&nbsp;";
+        wRow.appendChild(letterBlock);
+      }
+    } else {
+      {
+        let letterBlock = document.createElement("DIV");
+        letterBlock.className = "letterBlock";
+        letterBlock.innerHTML = letter.toUpperCase();
+        ucRow.appendChild(letterBlock);
+      }
+      {
+        let letterBlock = document.createElement("DIV");
+        letterBlock.setAttribute("l", letter);
+        letterBlock.classList.add("letterBlock", "available");
+        letterBlock.innerHTML = "&nbsp;";
+        letterBlock.addEventListener("click", selectLetterBlockWrk);
+        wRow.appendChild(letterBlock);
+      }
     }
-    {
-      let letterBlock = document.createElement("DIV");
-      letterBlock.setAttribute("l", letter);
-      letterBlock.classList.add("letterBlock", "available");
-      letterBlock.innerHTML = "&nbsp;";
-      letterBlock.addEventListener("click", selectLetterBlockWrk);
-      wRow.appendChild(letterBlock);
-    }
+
     console.log(letter);
   }
 
   for (let i = 0; i < wordRnd.length; i++) {
     const letter = wordRnd[i];
 
-    let letterBlock = document.createElement("DIV");
-    letterBlock.setAttribute("l", letter);
-    letterBlock.classList.add("letterBlock", "available");
-    letterBlock.innerHTML = letter;
-    letterBlock.addEventListener("click", selectLetterBlockLow);
-    lcRow.appendChild(letterBlock);
+    if (letter != " ") {
+      let letterBlock = document.createElement("DIV");
+      letterBlock.setAttribute("l", letter);
+      letterBlock.classList.add("letterBlock", "available");
+      letterBlock.innerHTML = letter;
+      letterBlock.addEventListener("click", selectLetterBlockLow);
+      lcRow.appendChild(letterBlock);
+    }
   }
 }
 
 function strArrCH(s) {
-  //string do pole se zachovanim ch  
+  //string do pole se zachovanim ch
   let wordArr = [];
 
   let i = 0;

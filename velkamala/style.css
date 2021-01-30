@@ -30,3 +30,12 @@
   .matched{
     background-color: snow;
   }
+
+  .space{
+      border: none ;
+      background-color: white !important
+  }
+
+  .hide{
+      visibility: hidden;
+  }
