@@ -12,6 +12,7 @@ let words = shuffle([
   "drobeček",
   "duhové barvy",
   "chobotnice",
+  "fagot",
   "fazole",
   "hrách",
   "dlouhé bidlo",
@@ -231,7 +232,7 @@ function matchLetterBoxes() {
   console.log(selectedLetterWrk);
 
   if (selectedLetterWrk === null || selectedLetterLow === null) {
-    resDiv.innerHTML = "not selected";
+    resDiv.innerHTML = "pair not selected";
   } else if (selectedLetterWrk === selectedLetterLow) {
     lettersMatched();
   } else {
@@ -242,6 +243,7 @@ function matchLetterBoxes() {
 
 function selectLetterBlockWrk(e) {
   if (e.target) {
+    resDiv.innerHTML = "";
     if (!e.target.classList.contains("matched")) {
       let divs = wRow.childNodes;
       divs.forEach((el) => {
@@ -255,13 +257,14 @@ function selectLetterBlockWrk(e) {
         e.target.classList.remove("available");
         e.target.classList.add("selected");
       }
+      matchLetterBoxes();
     }
-    matchLetterBoxes();
   }
 }
 
 function selectLetterBlockLow(e) {
   if (e.target) {
+    resDiv.innerHTML = "";
     if (!e.target.classList.contains("used")) {
       let divs = lcRow.childNodes;
       divs.forEach((el) => {
@@ -275,8 +278,8 @@ function selectLetterBlockLow(e) {
         e.target.classList.remove("available");
         e.target.classList.add("selected");
       }
+      matchLetterBoxes();
     }
-    matchLetterBoxes();
   }
 }
 
