@@ -1,77 +1,4 @@
-let words = shuffle([
-  "praha 5 barrandov",
-  "prase chrochtá",
-  "vítr fouká",
-  "hromy a blesky",
-  "nemocnice",
-  "bledule",
-  "vitamínový nápoj",
-  "brada",
-  "bludiště",
-  "brod",
-  "drobeček",
-  "duhové barvy",
-  "chobotnice",
-  "fagot",
-  "fazole",
-  "hrách",
-  "dlouhé bidlo",
-  "sladká kobliha",
-  "černý datel",
-  "rychlá raketa",
-  "buldozer",
-  "lední medvěd",
-  "ping pong",
-  "výr velký",
-  "rys ostrovid",
-  "dobrý oběd",
-  "chodec",
-  "chocholouš",
-  "procházka",
-  "letadlo",
-  "dvě morčata",
-  "bouřka",
-  "divoký bizon",
-  "dravá ryba",
-  "lego",
-  "bagr",
-  "bodlák",
-  "ježek",
-  "bublifuk",
-  "střelec",
-  "pěšec",
-  "gorila",
-  "jupiter",
-  "noční můra",
-  "modré ponožky",
-  "starý dub",
-  "kedluben",
-  "brambora",
-  "mobilní telefon",
-  "vodní mlýn",
-  "bílý dům",
-  "gepard",
-  "tygr",
-  "jinovatka",
-  "velikonoce",
-  "duben",
-  "martin",
-  "sladké fíky",
-  "fotbalový míč",
-  "zobcová flétna",
-  "harfa",
-  "výfuk",
-  "drahý kámen",
-  "mnoho minut",
-  "tmavá noc",
-  "zelený meloun",
-  "zimní boty",
-  "hluboká studna",
-  "malý dron",
-]);
-// const wordStr = "letadlo";
-// const word = [...wordStr]; // ToDo: mezery a ch
-// const wordRnd = shuffle([...wordStr]);
+let words = shuffle(tasks);
 
 let ucRow = document.getElementById("ucr");
 let wRow = document.getElementById("wr");
@@ -83,10 +10,10 @@ let cntWords = 0;
 let cntLettersOk = 0;
 let cntLettersKo = 0;
 let cntPoints = 0;
-//let wordFinished = false;
 
 document.getElementById("btnHlp").addEventListener("click", btnToggle);
-
+let unlock = unlockCreate();
+unlock(false);
 generateTask();
 
 function generateTask() {
@@ -103,6 +30,12 @@ function generateTask() {
     word = strArrCH(wordStr);
     wordRnd = shuffle(strArrCH(wordStr));
     drawLetterBlocks();
+
+    if (assertLetterBlocksClass() === false) {
+      resDiv.innerHTML = " !!! assertion error !!!";
+      throw " !!! assertion error !!!";
+    }
+    unlock(true);
   } else {
     resDiv.innerHTML = " ****   KONEC   ***** ";
   }
@@ -158,7 +91,7 @@ function lettersMatched() {
   wDivs.forEach((el) => {
     if (el.classList.contains("selected")) {
       el.classList.remove("selected");
-      el.classList.add("matched");
+      el.classList.add("matched", "justmatched");
       el.innerHTML = selectedLetterWrk;
     }
   });
@@ -167,20 +100,46 @@ function lettersMatched() {
   lcDivs.forEach((el) => {
     if (el.classList.contains("selected")) {
       el.classList.remove("selected");
-      el.classList.add("used");
+      el.classList.add("used", "justmatched");
     }
   });
 
-  let wDivsArr = Array.from(wDivs);
-  if (
-    wDivsArr.every((el) => {
-      return el.classList.contains("matched");
-    })
-  ) {
-    resDiv.innerHTML = "ALL matched";
-    cntWords++;
-    generateTask();
-  }
+  setTimeout(() => {
+    wDivs.forEach((el) => {
+      if (el.classList.contains("justmatched")) {
+        el.classList.remove("justmatched");
+      }
+    });
+
+    lcDivs.forEach((el) => {
+      if (el.classList.contains("justmatched")) {
+        el.classList.remove("justmatched");
+      }
+    });
+
+    let wDivsArr = Array.from(wDivs);
+    if (
+      wDivsArr.every((el) => {
+        return el.classList.contains("matched");
+      })
+    ) {
+      resDiv.innerHTML = "ALL matched";
+      cntWords++;
+
+      {
+        let letterBlock = document.createElement("DIV");
+        letterBlock.classList.add("letterBlock", "taskdone");
+        letterBlock.innerHTML = "&check;";
+        wRow.appendChild(letterBlock);
+      }
+
+      setTimeout(() => {
+        generateTask();
+      }, 1000);
+    } else {
+      unlock(true);
+    }
+  }, 500);
 }
 
 function lettersNotMatched() {
@@ -193,7 +152,7 @@ function lettersNotMatched() {
   wDivs.forEach((el) => {
     if (el.classList.contains("selected")) {
       el.classList.remove("selected");
-      el.classList.add("available");
+      el.classList.add("available", "notmatched");
     }
   });
 
@@ -201,38 +160,60 @@ function lettersNotMatched() {
   lcDivs.forEach((el) => {
     if (el.classList.contains("selected")) {
       el.classList.remove("selected");
-      el.classList.add("available");
+      el.classList.add("available", "notmatched");
     }
   });
+
+  setTimeout(() => {
+    wDivs.forEach((el) => {
+      if (el.classList.contains("notmatched")) {
+        el.classList.remove("notmatched");
+      }
+    });
+
+    lcDivs.forEach((el) => {
+      if (el.classList.contains("notmatched")) {
+        el.classList.remove("notmatched");
+      }
+    });
+
+    unlock(true);
+  }, 500);
 }
 
 function matchLetterBoxes() {
+  if (assertLetterBlocksClass() === false) {
+    resDiv.innerHTML = " !!! assertion error !!!";
+    throw " !!! assertion error !!!";
+  }
+
   let selectedLowRowDiv = document
     .getElementById("lcr")
     .getElementsByClassName("selected")[0];
 
   if (typeof selectedLowRowDiv === "undefined") {
-    console.log("selectedLowRowDiv is undefined");
+    //console.log"selectedLowRowDiv is undefined");
     selectedLetterLow = null;
   } else {
     selectedLetterLow = selectedLowRowDiv.getAttribute("l");
   }
-  console.log(selectedLetterLow);
+  //console.logselectedLetterLow);
 
   let selectedWrkRowDiv = document
     .getElementById("wr")
     .getElementsByClassName("selected")[0];
 
   if (typeof selectedWrkRowDiv === "undefined") {
-    console.log("selectedWrkRowDiv is undefined");
+    //console.log"selectedWrkRowDiv is undefined");
     selectedLetterWrk = null;
   } else {
     selectedLetterWrk = selectedWrkRowDiv.getAttribute("l");
   }
-  console.log(selectedLetterWrk);
+  //console.logselectedLetterWrk);
 
   if (selectedLetterWrk === null || selectedLetterLow === null) {
     resDiv.innerHTML = "pair not selected";
+    unlock(true);
   } else if (selectedLetterWrk === selectedLetterLow) {
     lettersMatched();
   } else {
@@ -242,7 +223,8 @@ function matchLetterBoxes() {
 }
 
 function selectLetterBlockWrk(e) {
-  if (e.target) {
+  if (e.target && unlock()) {
+    unlock(false);
     resDiv.innerHTML = "";
     if (!e.target.classList.contains("matched")) {
       let divs = wRow.childNodes;
@@ -258,12 +240,15 @@ function selectLetterBlockWrk(e) {
         e.target.classList.add("selected");
       }
       matchLetterBoxes();
+    } else {
+      unlock(true);
     }
   }
 }
 
 function selectLetterBlockLow(e) {
-  if (e.target) {
+  if (e.target && unlock()) {
+    unlock(false);
     resDiv.innerHTML = "";
     if (!e.target.classList.contains("used")) {
       let divs = lcRow.childNodes;
@@ -279,6 +264,8 @@ function selectLetterBlockLow(e) {
         e.target.classList.add("selected");
       }
       matchLetterBoxes();
+    } else {
+      unlock(true);
     }
   }
 }
@@ -315,7 +302,7 @@ function drawLetterBlocks() {
       }
     }
 
-    console.log(letter);
+    //console.logletter);
   }
 
   for (let i = 0; i < wordRnd.length; i++) {
@@ -362,4 +349,59 @@ function strArrCH(s) {
     }
   }
   return wordArr;
+}
+
+function assertLetterBlocksClass() {
+  // letter box has one and only one class from a set
+  
+  //class space jen pro format
+  const classSet_w = ["available", "selected", "matched"]; 
+  const classSet_lc = ["available", "selected", "used"];
+
+  const oneAndOnlyOneArr_w = [...wRow.children].map(
+    (el) => [...el.classList].filter((x) => classSet_w.includes(x)).length === 1
+  );
+
+  const oneAndOnlyOneArr_lc = [...lcRow.children].map(
+    (el) =>
+      [...el.classList].filter((x) => classSet_lc.includes(x)).length === 1
+  );
+
+  if (
+    oneAndOnlyOneArr_w.every((x) => x === true) &&
+    oneAndOnlyOneArr_lc.every((x) => x === true)
+  ) {
+    return true;
+  } else {
+    //console.log"oneAndOnlyOneArr_w: " + oneAndOnlyOneArr_w);
+    //console.log"oneAndOnlyOneArr_lc: " + oneAndOnlyOneArr_lc);
+    return false;
+  }
+}
+
+function unlockCreate() {
+  let unlocked = null;
+  function inner(unlockedNew = null) {
+    if (unlockedNew === null) {
+      return unlocked;
+    }
+    if (unlockedNew === false) {
+      // aktivity k zamknuti
+      wRow.style.pointerEvents = "none";
+      lcRow.style.pointerEvents = "none";
+
+      unlocked = false;
+      return unlocked;
+    }
+    if (unlockedNew === true) {
+      // aktivity k odemknuti
+
+      wRow.style.pointerEvents = "auto";
+      lcRow.style.pointerEvents = "auto";
+      unlocked = true;
+      return unlocked;
+    }
+    throw "invalid unlock request";
+  }
+  return inner;
 }
