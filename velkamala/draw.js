@@ -289,9 +289,16 @@ function drawLetterBlocks() {
       {
         let letterBlock = document.createElement("DIV");
         letterBlock.className = "letterBlock";
-        letterBlock.innerHTML = letter.toUpperCase();
+        if(cntWords % 2 == 0){
+            letterBlock.innerHTML = letter.toUpperCase();
+        }else{
+
+            letterBlock.innerHTML = letter;
+        }
         ucRow.appendChild(letterBlock);
       }
+      
+      // wrk row
       {
         let letterBlock = document.createElement("DIV");
         letterBlock.setAttribute("l", letter);
@@ -311,8 +318,14 @@ function drawLetterBlocks() {
     if (letter != " ") {
       let letterBlock = document.createElement("DIV");
       letterBlock.setAttribute("l", letter);
-      letterBlock.classList.add("letterBlock", "available");
-      letterBlock.innerHTML = letter;
+      letterBlock.classList.add("letterBlock", "available");      
+      if(cntWords % 2 == 0){
+        letterBlock.innerHTML = letter;
+    }else{
+
+        letterBlock.innerHTML = letter.toUpperCase();
+    }
+
       letterBlock.addEventListener("click", selectLetterBlockLow);
       lcRow.appendChild(letterBlock);
     }
