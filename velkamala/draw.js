@@ -10,6 +10,8 @@ let cntWords = 0;
 let cntLettersOk = 0;
 let cntLettersKo = 0;
 let cntPoints = 0;
+// prettier-ignore
+let extraLetters = ["a", "b", "d",  "e", "f", "g", "h", "i", "j", "l", "m", "n",  "r", "t"];
 
 document.getElementById("btnHlp").addEventListener("click", btnToggle);
 let unlock = unlockCreate();
@@ -27,9 +29,14 @@ function generateTask() {
 
   if (cntWords < words.length) {
     let wordStr = words[cntWords];
-    word = strArrCH(wordStr);
-    wordRnd = shuffle(strArrCH(wordStr));
-    drawLetterBlocks();
+    let word = strArrCH(wordStr);
+    let nExtraLetters = get_nExtraLetters(word);
+    let wordRnd = shuffle(word.concat(
+      shuffle(extraLetters).slice(0, nExtraLetters))
+    );
+
+    console.log(word, wordRnd);
+    drawLetterBlocks(word, wordRnd);
 
     if (assertLetterBlocksClass() === false) {
       resDiv.innerHTML = " !!! assertion error !!!";
@@ -40,6 +47,38 @@ function generateTask() {
     resDiv.innerHTML = " ****   KONEC   ***** ";
   }
 }
+
+function shuffle(array) {
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+function get_nExtraLetters(word) {
+    let wl = word.length;
+    if (wl > 10) {
+      return 0;
+    } else if (wl > 8) {
+      return 1;
+    } else if (wl > 6) {
+      return 2;
+    }else if (wl > 4) {
+      return 3;
+    } else {return 4}
+  };
 
 function updateCounters() {
   document.getElementById("cntWords").innerHTML = cntWords;
@@ -270,7 +309,7 @@ function selectLetterBlockLow(e) {
   }
 }
 
-function drawLetterBlocks() {
+function drawLetterBlocks(word, wordRnd) {
   for (let i = 0; i < word.length; i++) {
     const letter = word[i];
     if (letter == " ") {
@@ -289,15 +328,14 @@ function drawLetterBlocks() {
       {
         let letterBlock = document.createElement("DIV");
         letterBlock.className = "letterBlock";
-        if(cntWords % 2 == 0){
-            letterBlock.innerHTML = letter.toUpperCase();
-        }else{
-
-            letterBlock.innerHTML = letter;
+        if (cntWords % 2 == 0) {
+          letterBlock.innerHTML = letter.toUpperCase();
+        } else {
+          letterBlock.innerHTML = letter;
         }
         ucRow.appendChild(letterBlock);
       }
-      
+
       // wrk row
       {
         let letterBlock = document.createElement("DIV");
@@ -318,13 +356,12 @@ function drawLetterBlocks() {
     if (letter != " ") {
       let letterBlock = document.createElement("DIV");
       letterBlock.setAttribute("l", letter);
-      letterBlock.classList.add("letterBlock", "available");      
-      if(cntWords % 2 == 0){
+      letterBlock.classList.add("letterBlock", "available");
+      if (cntWords % 2 == 0) {
         letterBlock.innerHTML = letter;
-    }else{
-
+      } else {
         letterBlock.innerHTML = letter.toUpperCase();
-    }
+      }
 
       letterBlock.addEventListener("click", selectLetterBlockLow);
       lcRow.appendChild(letterBlock);
@@ -366,9 +403,9 @@ function strArrCH(s) {
 
 function assertLetterBlocksClass() {
   // letter box has one and only one class from a set
-  
+
   //class space jen pro format
-  const classSet_w = ["available", "selected", "matched"]; 
+  const classSet_w = ["available", "selected", "matched"];
   const classSet_lc = ["available", "selected", "used"];
 
   const oneAndOnlyOneArr_w = [...wRow.children].map(
