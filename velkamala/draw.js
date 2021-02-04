@@ -11,7 +11,7 @@ let cntLettersOk = 0;
 let cntLettersKo = 0;
 let cntPoints = 0;
 // prettier-ignore
-let extraLetters = ["a", "b", "d",  "e", "f", "g", "h", "i", "j", "l", "m", "n",  "r", "t"];
+let extraLetters = ["a", "b", "d",  "e", "f", "g", "h", "i", "j", "l", "m", "n", "q", "r", "t"];
 
 document.getElementById("btnHlp").addEventListener("click", btnToggle);
 let unlock = unlockCreate();
@@ -31,8 +31,12 @@ function generateTask() {
     let wordStr = words[cntWords];
     let word = strArrCH(wordStr);
     let nExtraLetters = get_nExtraLetters(word);
-    let wordRnd = shuffle(word.concat(
-      shuffle(extraLetters).slice(0, nExtraLetters))
+
+    // extra pismena z arr extraLetters, ktera nejsou obsazena v arr word
+    // delka arr extraLetters musi byt dostatecne velka - viz get_nExtraLetters()
+    let diffExtraLetters = extraLetters.filter((x) => !word.includes(x));
+    let wordRnd = shuffle(
+      word.concat(shuffle(diffExtraLetters).slice(0, nExtraLetters))
     );
 
     console.log(word, wordRnd);
@@ -68,17 +72,21 @@ function shuffle(array) {
   return array;
 }
 function get_nExtraLetters(word) {
-    let wl = word.length;
-    if (wl > 10) {
-      return 0;
-    } else if (wl > 8) {
-      return 1;
-    } else if (wl > 6) {
-      return 2;
-    }else if (wl > 4) {
-      return 3;
-    } else {return 4}
-  };
+  let wl = word.length;
+  if (wl > 10) {
+    return 0;
+  } else if (wl > 8) {
+    return 1;
+  } else if (wl > 6) {
+    return 2;
+  } else if (wl > 5) {
+    return 3;
+  } else if (wl > 4) {
+    return 4;
+  } else {
+    return 5;
+  }
+}
 
 function updateCounters() {
   document.getElementById("cntWords").innerHTML = cntWords;
