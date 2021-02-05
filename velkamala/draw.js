@@ -193,7 +193,7 @@ function lettersNotMatched() {
   resDiv.innerHTML = "not matched";
 
   cntLettersKo++;
-  cntPoints -= 2;
+  cntPoints -= 4;
 
   let wDivs = wRow.childNodes;
   wDivs.forEach((el) => {
