@@ -96,6 +96,7 @@ let tasks = [
       "fotbalový míč",
       "zobcová flétna",
       "harfa",
+      "lachtan",
       "hoboj",
       "výfuk",
       "drahý kámen",
