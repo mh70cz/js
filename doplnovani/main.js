@@ -1,3 +1,9 @@
+let cntPoints = 0;
+let cntHints = 0;
+let cntLettersOk = 0;
+let cntLettersKo = 0;
+let cntTasks = 0;
+
 phrases = {
   north: "sever",
   east: "východ",
@@ -6,6 +12,7 @@ phrases = {
 };
 
 drawLetterBoxes(phrases);
+updateCounters();
 
 function drawLetterBoxes(phrases) {
   let phraseLongArr = [];
@@ -145,43 +152,50 @@ function matchLetterBoxes() {
       selectedLBUpperSection.getAttribute("l") ===
       selectedLBLowerSection.getAttribute("l")
     ) {
-        matched(selectedLBUpperSection, selectedLBLowerSection, resultBox)
-
-    }else{
-        notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox)
+      matched(selectedLBUpperSection, selectedLBLowerSection, resultBox);
+    } else {
+      notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox);
     }
-
   } else {
     resultBox.innerText = "Not selected";
   }
 }
 
+function matched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
+  resultBox.innerText = "Matched";
 
-function matched(selectedLBUpperSection, selectedLBLowerSection, resultBox){
-    resultBox.innerText = "Matched";
+  selectedLBUpperSection.classList.remove("selected");
+  selectedLBUpperSection.classList.add("matched");
+  selectedLBLowerSection.classList.remove("selected");
+  selectedLBLowerSection.classList.add("used");
 
-    selectedLBUpperSection.classList.remove("selected");
-    selectedLBUpperSection.classList.add("matched");
-    selectedLBLowerSection.classList.remove("selected");
-    selectedLBLowerSection.classList.add("used");
+  selectedLBUpperSection.innerText = selectedLBUpperSection.getAttribute("l");
 
-    selectedLBUpperSection.innerText = selectedLBUpperSection.getAttribute("l");
-
-
+  cntPoints += 1;
+  cntLettersOk += 1;
+  updateCounters();
 }
 
+function notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
+  resultBox.innerText = "NOT Matched";
 
-function notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox){
-    resultBox.innerText = "NOT Matched";
+  selectedLBUpperSection.classList.remove("selected");
+  selectedLBUpperSection.classList.add("available");
+  selectedLBLowerSection.classList.remove("selected");
+  selectedLBLowerSection.classList.add("available");
 
-    selectedLBUpperSection.classList.remove("selected");
-    selectedLBUpperSection.classList.add("available");
-    selectedLBLowerSection.classList.remove("selected");
-    selectedLBLowerSection.classList.add("available");
-
-
+  cntPoints -= 4;
+  cntLettersKo += 1;
+  updateCounters();
 }
 
+function updateCounters() {
+  document.getElementById("cnt-tasks").innerText = cntTasks;
+  document.getElementById("cnt-letters-ok").innerText = cntLettersOk;
+  document.getElementById("cnt-letters-ko").innerText = cntLettersKo;
+  document.getElementById("cnt-hints").innerText = cntHints;
+  document.getElementById("cnt-points").innerText = cntPoints;
+}
 
 function strArrCH(s) {
   //string do pole se zachovanim ch
