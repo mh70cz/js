@@ -163,30 +163,58 @@ function matchLetterBoxes() {
 
 function matched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
   resultBox.innerText = "Matched";
-
-  selectedLBUpperSection.classList.remove("selected");
-  selectedLBUpperSection.classList.add("matched");
-  selectedLBLowerSection.classList.remove("selected");
-  selectedLBLowerSection.classList.add("used");
-
   selectedLBUpperSection.innerText = selectedLBUpperSection.getAttribute("l");
-
   cntPoints += 1;
   cntLettersOk += 1;
   updateCounters();
+
+  selectedLBUpperSection.classList.remove("selected");
+  selectedLBUpperSection.classList.add("matched", "justmatched");
+  selectedLBLowerSection.classList.remove("selected");
+  selectedLBLowerSection.classList.add("used", "justmatched");
+
+  setTimeout(justMatched, 500);
+
+  function justMatched() {
+    selectedLBUpperSection.classList.remove("justmatched");
+    selectedLBLowerSection.classList.remove("justmatched");
+
+    let upperRowDiv = document.getElementById("upper-section");
+    let letterBlocksDivs = upperRowDiv.childNodes;
+    let allUpperLetterBlocks = [];
+    for (const letterBlocksDiv of letterBlocksDivs) {
+      let letterBlocks = letterBlocksDiv.childNodes;
+      allUpperLetterBlocks.push(...letterBlocks);
+    }
+
+    if (
+      allUpperLetterBlocks.every((el) => {
+        return el.classList.contains("matched");
+      })
+    ) {
+        resultBox.innerText = "ALL Matched";
+        
+    }
+  }
 }
 
 function notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
   resultBox.innerText = "NOT Matched";
-
-  selectedLBUpperSection.classList.remove("selected");
-  selectedLBUpperSection.classList.add("available");
-  selectedLBLowerSection.classList.remove("selected");
-  selectedLBLowerSection.classList.add("available");
-
   cntPoints -= 4;
   cntLettersKo += 1;
   updateCounters();
+
+  selectedLBUpperSection.classList.remove("selected");
+  selectedLBUpperSection.classList.add("available", "notmatched");
+  selectedLBLowerSection.classList.remove("selected");
+  selectedLBLowerSection.classList.add("available", "notmatched");
+
+  setTimeout(notMatched, 500);
+
+  function notMatched() {
+    selectedLBUpperSection.classList.remove("notmatched");
+    selectedLBLowerSection.classList.remove("notmatched");
+  }
 }
 
 function updateCounters() {
