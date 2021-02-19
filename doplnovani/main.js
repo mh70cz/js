@@ -3,6 +3,7 @@ let cntHints = 0;
 let cntLettersOk = 0;
 let cntLettersKo = 0;
 let cntTasks = 0;
+let fontCase = "upper";
 
 phrases = {
   north: "sever",
@@ -11,10 +12,28 @@ phrases = {
   west: "západ",
 };
 
-drawLetterBoxes(phrases);
-updateCounters();
+nextRound();
 
-function drawLetterBoxes(phrases) {
+function nextRound() {
+  let divIds = ["north", "west", "east", "south", "lower-section"];
+  for (const divId of divIds) {
+    document.getElementById(divId).innerHTML = "";
+  }
+
+  if (cntTasks % 2 == 0) {
+    // load new phrases
+
+    fontCase = "upper";
+    drawLetterBoxes(phrases, fontCase);
+    updateCounters();
+  } else {
+    fontCase = "lower";
+    drawLetterBoxes(phrases, fontCase);
+    updateCounters();
+  }
+}
+
+function drawLetterBoxes(phrases, fontCase) {
   let phraseLongArr = [];
   let phraseArr;
   for (const key in phrases) {
@@ -26,7 +45,7 @@ function drawLetterBoxes(phrases) {
     console.log(key, phrase);
   }
 
-  drawLowerLetterBoxes(shuffle(phraseLongArr), (fontCase = "lower"));
+  drawLowerLetterBoxes(shuffle(phraseLongArr), fontCase);
 }
 
 function drawUpperLetterBoxes(destinantionId, phraseArr) {
@@ -113,13 +132,13 @@ function selectLowerLetterBlock(e) {
         e.target.classList.add("selected");
       }
       //some activity with the letter box
-      matchLetterBoxes();
+      matchLetterBoxes(fontCase);
     }
   } else {
   }
 }
 
-function matchLetterBoxes() {
+function matchLetterBoxes(fontCase) {
   let selectedLBUpperSection = (() => {
     let upperSectionDiv = document.getElementById("upper-section");
     let letterBlocksDivs = upperSectionDiv.childNodes;
@@ -152,7 +171,12 @@ function matchLetterBoxes() {
       selectedLBUpperSection.getAttribute("l") ===
       selectedLBLowerSection.getAttribute("l")
     ) {
-      matched(selectedLBUpperSection, selectedLBLowerSection, resultBox);
+      matched(
+        selectedLBUpperSection,
+        selectedLBLowerSection,
+        resultBox,
+        fontCase
+      );
     } else {
       notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox);
     }
@@ -161,9 +185,20 @@ function matchLetterBoxes() {
   }
 }
 
-function matched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
+function matched(
+  selectedLBUpperSection,
+  selectedLBLowerSection,
+  resultBox,
+  fontCase = "lower"
+) {
   resultBox.innerText = "Matched";
-  selectedLBUpperSection.innerText = selectedLBUpperSection.getAttribute("l");
+  let letter = null;
+  if (fontCase === "upper") {
+    letter = selectedLBUpperSection.getAttribute("l").toUpperCase();
+  } else {
+    letter = selectedLBUpperSection.getAttribute("l");
+  }
+  selectedLBUpperSection.innerText = letter;
   cntPoints += 1;
   cntLettersOk += 1;
   updateCounters();
@@ -192,8 +227,9 @@ function matched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
         return el.classList.contains("matched");
       })
     ) {
-        resultBox.innerText = "ALL Matched";
-        
+      resultBox.innerText = "ALL Matched";
+      cntTasks += 1;
+      nextRound();
     }
   }
 }
