@@ -139,6 +139,9 @@ function lettersMatched() {
     if (el.classList.contains("selected")) {
       el.classList.remove("selected");
       el.classList.add("matched", "justmatched");
+      if (cntWords % 2 !== 0){
+        selectedLetterWrk = selectedLetterWrk.toUpperCase();
+      }
       el.innerHTML = selectedLetterWrk;
     }
   });
