@@ -4,13 +4,9 @@ let cntLettersOk = 0;
 let cntLettersKo = 0;
 let cntTasks = 0;
 let fontCase = "upper";
+let phrases = {};
+let positions = {};
 
-phrases = {
-  north: "sever",
-  east: "východ",
-  south: "jih",
-  west: "západ",
-};
 
 nextRound();
 
@@ -21,7 +17,18 @@ function nextRound() {
   }
 
   if (cntTasks % 2 == 0) {
-    // load new phrases
+    // load new task
+
+    let task = loadTask(tasks, cntTasks / 2);
+    if (task === null) {
+      // konec
+      document.getElementById("res").innerHTML = " ****   KONEC   ***** ";
+      return;
+    }
+
+    [phrases, positions] = task;
+
+    console.log(phrases, positions);
 
     fontCase = "upper";
     drawLetterBoxes(phrases, fontCase);
@@ -31,6 +38,22 @@ function nextRound() {
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
   }
+}
+
+function loadTask(tasks, num) {
+  if (tasks.length < num + 1) {
+    return null;
+  }
+  let phrases = {};
+  let positions = {};
+
+  keys = ["north", "west", "east", "south"];
+  for (const key of keys) {
+    phrases[key] = tasks[num][key][0];
+    positions[key] = [tasks[num][key][1], tasks[num][key][2]];
+  }
+
+  return [phrases, positions];
 }
 
 function drawLetterBoxes(phrases, fontCase) {
@@ -138,7 +161,7 @@ function selectLowerLetterBlock(e) {
   }
 }
 
-function matchLetterBoxes(fontCase) {
+function matchLetterBoxes() {
   let selectedLBUpperSection = (() => {
     let upperSectionDiv = document.getElementById("upper-section");
     let letterBlocksDivs = upperSectionDiv.childNodes;
