@@ -1,63 +1,87 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  .letter-block-contatiner{
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .letter-block-contatiner{
     background-color: whitesmoke;
-  }
-  
-  .letter-block {
+    opacity: 0.5;
+  } */
 
-    width: 50px;
-    display: inline-block;
-    border-style: solid;
-    border-color: darkgrey;
-    text-align: center;
-    padding: 10px 0;
-    margin: 5px;
-    user-select: none;
-  
-  }
+.letter-block {
+  width: 50px;
+  display: inline-block;
+  border-style: solid;
+  border-color: darkgrey;
+  text-align: center;
+  padding: 10px 0;
+  margin: 5px;
+  user-select: none;
+}
 
-  
-  .available:hover {
-    background-color: burlywood;
-  }
-  
-  .selected {
-    background-color: yellowgreen;
-  }
-  
-  .used {
-    color: sandybrown;
-    background-color: bisque;
-  }
-  
-  .matched {
-    background-color: cornsilk;
-  }
-  
-  .space {
-    border: none;
-    background-color: white !important;
-  }
-  
-  .hide {
-    visibility: hidden;
-  }
-  
-  .notmatched {
-    background-color: red !important;
-  }
-  
-  .justmatched {
-      background-color: greenyellow !important;
-  }
-  
-  .taskdone{
-      border: none;
-      color: green;
-      font-weight: bold;
-      padding: 0;
-      font-size: 150%;
-  }
+.available:hover {
+  background-color: burlywood;
+}
+
+.selected {
+  background-color: yellowgreen;
+}
+
+.used {
+  color: sandybrown;
+  background-color: bisque;
+}
+
+.matched {
+  background-color: cornsilk;
+}
+
+.space {
+  border: none;
+  background-color: white !important;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.notmatched {
+  background-color: red !important;
+}
+
+.justmatched {
+  background-color: greenyellow !important;
+}
+
+.taskdone {
+  border: none;
+  color: green;
+  font-weight: bold;
+  padding: 0;
+  font-size: 150%;
+}
+
+#divMain {
+  position: relative;
+  top: 0;
+}
+
+#imgMain {
+  position: absolute;
+
+}
+
+#north {
+  position: absolute;
+}
+
+#south {
+  position: absolute;
+}
+
+#west {
+  position: absolute;
+}
+
+#east {
+  position: absolute;
+}

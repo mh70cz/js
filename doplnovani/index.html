@@ -9,6 +9,9 @@
 </head>
 
 <body>
+    <div id="divMain">
+        <img id="imgMain" src="./img/svetStrany.png">
+    
 
     <div id="upper-section">
 
@@ -20,13 +23,15 @@
 
         <div id="south" class="letter-block-contatiner"></div>
     </div>
+</div>
+    <div id="done" class="letter-block hide"></div>
+
 
     <div id="lower-section" class="letter-block-contatiner"></div>
 
     <br /><br />
-    <button  onclick="hint()">Nápověda</button>
+    <button id="btn-hint" onclick="hint()">Nápověda</button>
     <br /><br />
-
     <div id="cnt">VÝSLEDKY:<br />
         HOTOVÝCH ÚLOH: <span id="cnt-tasks"></span>
         <br />
@@ -40,11 +45,16 @@
     <br /><br /><br />
     <div id="res"></div>
 
+    </div>
+
+
+
     <br /><br /><br />
-    <button  onclick="clickRandomAvailable()">SelectRandom</button>
-    <button  onclick="selectUntilLeft(2)">SelectRandomUntilLeft2</button>
+    <button onclick="clickRandomAvailable()">SelectRandom</button>
+    <button onclick="selectUntilLeft(2)">SelectRandomUntilLeft2</button>
     <script src="tasks.js"></script>
-    <script src="hint.js"></script>  
+    <script src="hint.js"></script>
+    <script src="adjustDivs.js"></script>
     <script src="main.js"></script>
     <script src="service.js"></script>
 </body>

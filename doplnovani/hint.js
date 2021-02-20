@@ -1,3 +1,28 @@
+
+function getLbUpperAvailableArr() {
+    let lbUpperAvailableArr = [];
+    let upperDivs = document.getElementById("upper-section").childNodes;
+    for (const divs of upperDivs) {
+      for (const div of divs.childNodes) {
+        if (div.classList.contains("available")) {
+          lbUpperAvailableArr.push(div);
+        }
+      }
+    }
+    return lbUpperAvailableArr;
+  }
+  
+  function getLbLowerAvailableArr() {
+    let lbLowerAvailableArr = [];
+    let lowerLbDivs = document.getElementById("lower-section").childNodes;
+    for (const div of lowerLbDivs) {
+      if (div.classList.contains("available")) {
+        lbLowerAvailableArr.push(div);
+      }
+    }
+    return lbLowerAvailableArr;
+  }
+
 function getSelectedLBUpperSection() {
   let upperSectionDiv = document.getElementById("upper-section");
   let letterBlocksDivs = upperSectionDiv.childNodes;
@@ -38,7 +63,7 @@ function findFirstLB(arr, letter) {
 function hint() {
   function hintCnt() {
     cntHints += 1;
-    cntPoints -= 1;
+    cntPoints -= 2;
   }
 
   let selectedLBUpperSection = getSelectedLBUpperSection();

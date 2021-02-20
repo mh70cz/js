@@ -5,8 +5,7 @@ let cntLettersKo = 0;
 let cntTasks = 0;
 let fontCase = "upper";
 let phrases = {};
-let positions = {};
-
+let img = null;
 
 nextRound();
 
@@ -16,23 +15,39 @@ function nextRound() {
     document.getElementById(divId).innerHTML = "";
   }
 
+  {
+    let doneDiv = document.getElementById("done");
+    doneDiv.classList.add("hide");
+    doneDiv.classList.remove("taskdone");
+  }
+
   if (cntTasks % 2 == 0) {
     // load new task
 
     let task = loadTask(tasks, cntTasks / 2);
     if (task === null) {
       // konec
+      updateCounters();
+      document.getElementById("divMain").remove();
+      document.getElementById("btn-hint").remove();
       document.getElementById("res").innerHTML = " ****   KONEC   ***** ";
       return;
     }
+    [phrases, img]  = task;    
+    img = `.\\img\\${img}`;
+    console.log(phrases, img);
 
-    [phrases, positions] = task;
-
-    console.log(phrases, positions);
+    document.getElementById("imgMain").setAttribute("src", img) ;
 
     fontCase = "upper";
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
+
+    setTimeout(() => {
+        positionAdjust();
+        // unlock  
+    }, 100);
+
   } else {
     fontCase = "lower";
     drawLetterBoxes(phrases, fontCase);
@@ -45,15 +60,14 @@ function loadTask(tasks, num) {
     return null;
   }
   let phrases = {};
-  let positions = {};
 
   keys = ["north", "west", "east", "south"];
   for (const key of keys) {
-    phrases[key] = tasks[num][key][0];
-    positions[key] = [tasks[num][key][1], tasks[num][key][2]];
+    phrases[key] = tasks[num][key];
   }
+  const img = tasks[num]["img"];
 
-  return [phrases, positions];
+  return [phrases, img];
 }
 
 function drawLetterBoxes(phrases, fontCase) {
@@ -252,7 +266,12 @@ function matched(
     ) {
       resultBox.innerText = "ALL Matched";
       cntTasks += 1;
-      nextRound();
+      let doneDiv = document.getElementById("done");
+      doneDiv.innerHTML = "&check;";
+      doneDiv.classList.remove("hide");
+      doneDiv.classList.add("taskdone");
+      setTimeout(nextRound, 500);
+      //nextRound();
     }
   }
 }

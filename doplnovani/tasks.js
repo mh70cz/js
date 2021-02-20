@@ -1,15 +1,17 @@
 tasks = [
   {
-    north: ["sever", 100, 200],
-    east: ["východ", 100, 200],
-    south: ["jih", 100, 200],
-    west: ["západ", 100, 200],
+    north: "sever",
+    east: "východ",
+    south:"jih",
+    west: "západ",
+    img: "svetStrany.png"
   },
 
   {
-    north: ["top", 100, 200],
-    east: ["right", 100, 200],
-    south: ["down", 100, 200],
-    west: ["left", 100, 200],
+    north: "léto",
+    east: "podzim",
+    south: "zima",
+    west: "jaro",
+    img: "rok.png"
   },
 ];
