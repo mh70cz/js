@@ -14,4 +14,13 @@ tasks = [
     west: "jaro",
     img: "rok.png"
   },
+
+  {
+    north: "oheň",
+    east: "voda",
+    south: "země",
+    west: "vzduch",
+    img: "4-elements-of-nature.jpg"
+  },
+
 ];
