@@ -1,27 +1,26 @@
-
 function getLbUpperAvailableArr() {
-    let lbUpperAvailableArr = [];
-    let upperDivs = document.getElementById("upper-section").childNodes;
-    for (const divs of upperDivs) {
-      for (const div of divs.childNodes) {
-        if (div.classList.contains("available")) {
-          lbUpperAvailableArr.push(div);
-        }
-      }
-    }
-    return lbUpperAvailableArr;
-  }
-  
-  function getLbLowerAvailableArr() {
-    let lbLowerAvailableArr = [];
-    let lowerLbDivs = document.getElementById("lower-section").childNodes;
-    for (const div of lowerLbDivs) {
+  let lbUpperAvailableArr = [];
+  let upperDivs = document.getElementById("upper-section").childNodes;
+  for (const divs of upperDivs) {
+    for (const div of divs.childNodes) {
       if (div.classList.contains("available")) {
-        lbLowerAvailableArr.push(div);
+        lbUpperAvailableArr.push(div);
       }
     }
-    return lbLowerAvailableArr;
   }
+  return lbUpperAvailableArr;
+}
+
+function getLbLowerAvailableArr() {
+  let lbLowerAvailableArr = [];
+  let lowerLbDivs = document.getElementById("lower-section").childNodes;
+  for (const div of lowerLbDivs) {
+    if (div.classList.contains("available")) {
+      lbLowerAvailableArr.push(div);
+    }
+  }
+  return lbLowerAvailableArr;
+}
 
 function getSelectedLBUpperSection() {
   let upperSectionDiv = document.getElementById("upper-section");
@@ -63,6 +62,7 @@ function findFirstLB(arr, letter) {
 function hint() {
   function hintCnt() {
     cntHints += 1;
+    cntLettersOk -= 1;
     cntPoints -= 2;
   }
 
@@ -114,3 +114,47 @@ function hint() {
     }
   }
 }
+
+function iy() {
+    // zcela netestovano
+  function is_iy() {
+    const LbUpperAvailableArr = getLbUpperAvailableArr();
+    const LbLowerAvailableArr = getLbLowerAvailableArr();
+    let LbLowerAvailableLetterArr = LbLowerAvailableArr.forEach((el) => {
+      el.getAttribute("l");
+    });
+    let LbUpperAvailableLetterArr = LbUpperAvailableArr.forEach((el) => {
+      el.getAttribute("l");
+    });
+
+    return (
+      (LbUpperAvailableLetterArr.includes("y") ||
+      LbUpperAvailableLetterArr.includes("ý")) &&
+      (LbLowerAvailableLetterArr.includes("i") ||
+        LbLowerAvailableLetterArr.includes("í"))
+    );
+  }
+
+  function match_y(letter) {
+    const LbUpperAvailableArr = getLbUpperAvailableArr();
+    const LbLowerAvailableArr = getLbLowerAvailableArr();
+
+    let elUpper = findFirstLB(LbUpperAvailableArr, letter);
+    let elLower = findFirstLB(LbLowerAvailableArr, letter);
+
+    if (elUpper && elLower) {
+      elUpper.click();
+      elLower.click();
+    }
+  }
+
+
+  while(is_iy()){
+      match_y("y");
+      match_y("ý");
+
+        cntLettersOk -= 1;
+        cntPoints -= 1;
+      }    
+  }
+
