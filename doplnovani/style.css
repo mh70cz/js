@@ -15,7 +15,12 @@ body {
   text-align: center;
   padding: 10px 0;
   margin: 5px;
-  user-select: none;
+
+
+}
+
+.letter-block-container {
+    user-select: none;
 }
 
 .available:hover {

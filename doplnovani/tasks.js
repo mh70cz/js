@@ -16,10 +16,10 @@ tasks = [
         img: "autobus-kolo-vlak-boty.png",
       },
 
-    {
+   {
         north: "slunce",
         east: "měsíc",
-        south: "mrak",
+        south:  "mrak",
         west: "blesk",
         img: "slunce-mesic-mrak-blesk.png",
       },
@@ -64,8 +64,6 @@ tasks = [
         img: "koza-slepice-ovce-kohout.png",
       },
 
-
-
       {
         north: "bagr",
         east: "buldozer",
@@ -88,14 +86,6 @@ tasks = [
         south: "kočka",
         west: "labuť",
         img: "krava-pes-kocka-labut.png",
-      },
-
-    {
-        north: "krokodýl",
-        east: "zebra",
-        south: "delfín",
-        west: "hroch",
-        img: "kroko-zebra-delfin-hroch.png",
       },
 
     {
@@ -128,5 +118,13 @@ tasks = [
     south: "tygr",
     west: "žirafa",
     img: "kun-slon-tygr-zirafa.png",
+  },
+
+  {
+    north: "krokodýl",
+    east: "zebra",
+    south: "delfín",
+    west: "hroch",
+    img: "kroko-zebra-delfin-hroch.png",
   },
 ];

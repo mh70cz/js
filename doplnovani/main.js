@@ -6,11 +6,13 @@ let cntTasks = 0;
 let fontCase = "upper";
 let phrases = {};
 let img = null;
+let unlock = unlockCreate();
 
 nextRound();
 
 function nextRound() {
   let divIds = ["north", "west", "east", "south", "lower-section"];
+  unlock(false);
   for (const divId of divIds) {
     document.getElementById(divId).innerHTML = "";
   }
@@ -33,26 +35,25 @@ function nextRound() {
       document.getElementById("res").innerHTML = " ****   KONEC   ***** ";
       return;
     }
-    [phrases, img]  = task;    
+    [phrases, img] = task;
     img = `.\\img\\${img}`;
     console.log(phrases, img);
 
-    document.getElementById("imgMain").setAttribute("src", img) ;
+    document.getElementById("imgMain").setAttribute("src", img);
 
     fontCase = "upper";
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
 
     setTimeout(() => {
-        positionAdjust();
-        // unlock  
+      positionAdjust();
     }, 100);
-
   } else {
     fontCase = "lower";
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
   }
+  unlock(true);
 }
 
 function loadTask(tasks, num) {
@@ -124,7 +125,8 @@ function drawLowerLetterBoxes(phraseArr, fontCase = "lower") {
 }
 
 function selectUpperLetterBlock(e) {
-  if (e.target) {
+  if (e.target && unlock()) {
+    unlock(false);
     console.log(e.target);
 
     if (!e.target.classList.contains("matched")) {
@@ -147,12 +149,14 @@ function selectUpperLetterBlock(e) {
       //some activity with the letter box
       matchLetterBoxes();
     }
+    unlock(true);
   } else {
   }
 }
 
 function selectLowerLetterBlock(e) {
-  if (e.target) {
+  if (e.target && unlock()) {
+    unlock(false);
     console.log(e.target);
 
     if (!e.target.classList.contains("used")) {
@@ -171,6 +175,7 @@ function selectLowerLetterBlock(e) {
       //some activity with the letter box
       matchLetterBoxes(fontCase);
     }
+    unlock(true);
   } else {
   }
 }
