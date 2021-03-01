@@ -53,8 +53,8 @@ function nextRound() {
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
   }
-  unlock(true);
   iy();
+  unlock(true);
 }
 
 function loadTask(tasks, num) {
@@ -126,7 +126,7 @@ function drawLowerLetterBoxes(phraseArr, fontCase = "lower") {
 }
 
 function selectUpperLetterBlock(e) {
-  if (e.target && unlock()) {
+  if (e.target ) {
     unlock(false);
     console.log(e.target);
 
@@ -156,7 +156,7 @@ function selectUpperLetterBlock(e) {
 }
 
 function selectLowerLetterBlock(e) {
-  if (e.target && unlock()) {
+  if (e.target ) {
     unlock(false);
     console.log(e.target);
 
