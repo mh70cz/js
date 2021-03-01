@@ -116,15 +116,15 @@ function hint() {
 }
 
 function iy() {
-    // zcela netestovano
+
   function is_iy() {
     const LbUpperAvailableArr = getLbUpperAvailableArr();
     const LbLowerAvailableArr = getLbLowerAvailableArr();
-    let LbLowerAvailableLetterArr = LbLowerAvailableArr.forEach((el) => {
-      el.getAttribute("l");
+    let LbLowerAvailableLetterArr = LbLowerAvailableArr.map((el) => {
+      return el.getAttribute("l");
     });
-    let LbUpperAvailableLetterArr = LbUpperAvailableArr.forEach((el) => {
-      el.getAttribute("l");
+    let LbUpperAvailableLetterArr = LbUpperAvailableArr.map((el) => {
+      return el.getAttribute("l");
     });
 
     return (
@@ -155,6 +155,7 @@ function iy() {
 
         cntLettersOk -= 1;
         cntPoints -= 1;
+        updateCounters();
       }    
   }
 

@@ -53,8 +53,8 @@ function nextRound() {
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
   }
-  // iy()
   unlock(true);
+  iy();
 }
 
 function loadTask(tasks, num) {
