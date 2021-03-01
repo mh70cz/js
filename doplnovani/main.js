@@ -53,6 +53,7 @@ function nextRound() {
     drawLetterBoxes(phrases, fontCase);
     updateCounters();
   }
+  // iy()
   unlock(true);
 }
 
@@ -255,29 +256,29 @@ function matched(
   function justMatched() {
     selectedLBUpperSection.classList.remove("justmatched");
     selectedLBLowerSection.classList.remove("justmatched");
+  }
 
-    let upperRowDiv = document.getElementById("upper-section");
-    let letterBlocksDivs = upperRowDiv.childNodes;
-    let allUpperLetterBlocks = [];
-    for (const letterBlocksDiv of letterBlocksDivs) {
-      let letterBlocks = letterBlocksDiv.childNodes;
-      allUpperLetterBlocks.push(...letterBlocks);
-    }
+  let upperRowDiv = document.getElementById("upper-section");
+  let letterBlocksDivs = upperRowDiv.childNodes;
+  let allUpperLetterBlocks = [];
+  for (const letterBlocksDiv of letterBlocksDivs) {
+    let letterBlocks = letterBlocksDiv.childNodes;
+    allUpperLetterBlocks.push(...letterBlocks);
+  }
 
-    if (
-      allUpperLetterBlocks.every((el) => {
-        return el.classList.contains("matched");
-      })
-    ) {
-      resultBox.innerText = "ALL Matched";
-      cntTasks += 1;
-      let doneDiv = document.getElementById("done");
-      doneDiv.innerHTML = "&check;";
-      doneDiv.classList.remove("hide");
-      doneDiv.classList.add("taskdone");
-      setTimeout(nextRound, 500);
-      //nextRound();
-    }
+  if (
+    allUpperLetterBlocks.every((el) => {
+      return el.classList.contains("matched");
+    })
+  ) {
+    resultBox.innerText = "ALL Matched";
+    cntTasks += 1;
+    let doneDiv = document.getElementById("done");
+    doneDiv.innerHTML = "&check;";
+    doneDiv.classList.remove("hide");
+    doneDiv.classList.add("taskdone");
+    setTimeout(nextRound, 500);
+    //nextRound();
   }
 }
 
@@ -292,9 +293,9 @@ function notMatched(selectedLBUpperSection, selectedLBLowerSection, resultBox) {
   selectedLBLowerSection.classList.remove("selected");
   selectedLBLowerSection.classList.add("available", "notmatched");
 
-  setTimeout(notMatched, 500);
+  setTimeout(justNotMatched, 500);
 
-  function notMatched() {
+  function justNotMatched() {
     selectedLBUpperSection.classList.remove("notmatched");
     selectedLBLowerSection.classList.remove("notmatched");
   }
