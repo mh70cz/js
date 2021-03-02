@@ -6,7 +6,7 @@ var text_proc = text_raw.replace(/^\s*/gm, "");
 var text_proc = text_proc.replace(/^-</gm, "<");
 
 //  e.g. <Tana.Dolakova@dolak.cz>
-var text_proc = text_proc.replace(/<.*@*\.cz>/gm, "");
+var text_proc = text_proc.replace(/<.*@.*\.cz>/gm, "");
 
 //ns2:getIsirWsCuzkDataResponse
 var text_proc = text_proc.replace(
