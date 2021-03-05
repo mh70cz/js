@@ -1,0 +1,115 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hdn{
+    visibility:hidden;
+}
+
+.mark{
+    border-color: rgb(197, 17, 17)!important; 
+}
+
+.container {
+  position: relative;
+  /* height: 100%;*/
+  width: 640px;
+  user-select: none;
+}
+
+.operand,
+.operator,
+.inp,
+.result {
+  width: 50px;
+  display: inline-block;
+  border-style: solid;
+  border-color: darkgrey;
+  text-align: center;
+  padding: 10px 0;
+  margin: 5px;
+}
+
+
+
+.btn {
+  width: 50px;
+  display: inline-block;
+  border-style:hidden;
+  text-align: center;
+  padding: 10px 0;
+  margin: 5px;
+}
+
+
+.check-success {
+    border-style:hidden;
+    color: green;
+}
+
+.check-fail {
+    border-color: darkred;
+    color: red;
+}
+
+#moving-box {
+  width: 50px;
+  /* display: inline-block; */
+  border-style: solid;
+  border-color: rgb(197, 17, 17);
+  text-align: center;
+  padding: 10px 0;
+  margin: 5px;
+
+  position: absolute;
+
+  transition: top 2s, left 2s;
+  top: 0px;
+  left: 0px;
+    
+  z-index: 15;
+  visibility: hidden;
+}
+
+#top-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0px;
+
+  background-color: linen;
+}
+
+#mi1-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 125px;
+  background-color: lightyellow;
+
+}
+
+#mi2-row {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 250px;
+    background-color: lightyellow;
+
+  }
+
+#bot-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 375px;
+  background-color: lightyellow;
+
+}
+
+#lower-section {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 500px;
+}

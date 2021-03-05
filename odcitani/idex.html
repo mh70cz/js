@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Odcitani</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="top-row">
+
+            <div class="operand">12</div>
+            <div class="operator">-</div>
+            <div class="operand">5</div>
+            <div class="operator">=</div>
+            <div class="result hdn">&nbsp;</div>
+            <div class="btn hdn">
+                <button onclick="checkZeroInp()">✓</button>
+            </div>
+        </div>
+
+        <div id="mi1-row" class="hdn">
+
+            <div class="operand">&nbsp;</div>
+            <div class="operator">-</div>
+            <div class="operand">&nbsp;</div>
+            <div class="operator">=</div>
+            <div class="inp hdn">
+                <input type="text" id="first-inp" value="" style="width: 20px;">
+            </div>
+            <div class="btn hdn">
+                <button onclick="checkFirstInp()">✓</button>
+            </div>
+        </div>
+
+
+        <div id="mi2-row" class="hdn">
+
+            <div class="operand">&nbsp;</div>
+            <div class="operator">-</div>
+            <div class="operand">&nbsp;</div>
+            <div class="operator">=</div>
+            <div class="inp hdn">
+                <input type="text" id="second-inp" value="" style="width: 20px;">
+            </div>
+            <div class="btn hdn">
+                <button onclick="checkSecondInp()">✓</button>
+            </div>
+        </div>
+
+        <div id="bot-row" class="hdn">
+
+            <div class="operand">&nbsp;</div>
+            <div class="operator">-</div>
+            <div class="operand">&nbsp;</div>
+            <div class="operator">-</div>
+            <div class="operand">&nbsp;</div>
+            <div class="operator">=</div>
+            <div class="inp hdn">
+                <input type="text" id="third-inp" value="" style="width: 20px;">
+            </div>
+            <div class="btn hdn">
+                <button onclick="checkThirdInp()">✓</button>
+            </div>
+        </div>
+
+        <div id="moving-box">88</div>
+
+        <div id="lower-section">
+
+            <button onclick="move_1()">moveMovingBox</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
