@@ -80,7 +80,10 @@ function move_1() {
   mi1Row2operand.innerHTML = Math.floor(firstMainOperand / 10) * 10;
 
   setTimeout(() => {
-    mi1Row.getElementsByClassName("inp")[0].classList.remove("hdn");
+    let inpDiv = mi1Row.getElementsByClassName("inp")[0];
+    inpDiv.classList.remove("hdn");
+    inpDiv.children[0].focus();
+
     mi1Row.getElementsByClassName("btn")[0].classList.remove("hdn");
   }, 2000);
 }
@@ -119,7 +122,10 @@ function move_5() {
 
   moveMovingBox(mi2Row1operand, (txt = null), (vis = "visible"));
   setTimeout(() => {
-    mi2Row.getElementsByClassName("inp")[0].classList.remove("hdn");
+    let inpDiv = mi2Row.getElementsByClassName("inp")[0];
+    inpDiv.classList.remove("hdn");
+    inpDiv.children[0].focus();
+
     mi2Row.getElementsByClassName("btn")[0].classList.remove("hdn");
   }, 2000);
 }
@@ -177,7 +183,9 @@ function move_9() {
 
   moveMovingBox(botRow3operand, (txt = null), (vis = "visible"));
   setTimeout(() => {
-    botRow.getElementsByClassName("inp")[0].classList.remove("hdn");
+    let inpDiv = botRow.getElementsByClassName("inp")[0];
+    inpDiv.classList.remove("hdn");
+    inpDiv.children[0].focus();
     botRow.getElementsByClassName("btn")[0].classList.remove("hdn");
   }, 2000);
 }
@@ -187,6 +195,8 @@ function createZeroInp() {
   zeroInp.classList.remove("hdn");
   zeroInp.innerHTML =
     '<input type="text" id="zero-inp" value="" style="width: 20px;" />';
+
+  zeroInp.children[0].focus();
   let btnDiv = topRow.getElementsByClassName("btn")[0];
   btnDiv.classList.remove("hdn");
 }
