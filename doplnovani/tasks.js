@@ -1,29 +1,21 @@
 tasks = [
 
     {
-        north: "sever",
-        east: "východ",
-        south: "jih",
-        west: "západ",
-        img: "svetStrany.png",
+        north: "kladivo",
+        east: "kleště",
+        south: "pila",
+        west: "šroubovák",
+        img: "kladivo-kleste-pila-sroubovak.png",
       },
 
-      
     {
-        north: "kůň",
-        east: "slon",
-        south: "tygr",
-        west: "žirafa",
-        img: "kun-slon-tygr-zirafa.png",
+        north: "bagr",
+        east: "buldozer",
+        south: "válec",
+        west: "jeřáb",
+        img: "bagr-buldozer-valec-jerab.png",
       },
     
-      {
-        north: "krokodýl",
-        east: "zebra",
-        south: "delfín",
-        west: "hroch",
-        img: "kroko-zebra-delfin-hroch.png",
-      },
 
     {
         north: "liška",
@@ -89,13 +81,7 @@ tasks = [
         img: "koza-slepice-ovce-kohout.png",
       },
 
-      {
-        north: "bagr",
-        east: "buldozer",
-        south: "válec",
-        west: "jeřáb",
-        img: "bagr-buldozer-valec-jerab.png",
-      },
+
 
     {
         north: "vlk",
@@ -120,6 +106,22 @@ tasks = [
     west: "jaro",
     img: "rok.png",
   },
+ 
+{
+    north: "kůň",
+    east: "slon",
+    south: "tygr",
+    west: "žirafa",
+    img: "kun-slon-tygr-zirafa.png",
+  },
+
+  {
+    north: "krokodýl",
+    east: "zebra",
+    south: "delfín",
+    west: "hroch",
+    img: "kroko-zebra-delfin-hroch.png",
+  },
 
   {
     north: "oheň",
@@ -129,5 +131,12 @@ tasks = [
     img: "4-elements-of-nature.jpg",
   },
 
+  {
+    north: "sever",
+    east: "východ",
+    south: "jih",
+    west: "západ",
+    img: "svetStrany.png",
+  },
 
 ];
