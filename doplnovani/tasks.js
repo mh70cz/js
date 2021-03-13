@@ -1,4 +1,13 @@
 tasks = [
+
+    {
+        north: "kos",
+        east: "sýkorka",
+        south: "páv",
+        west: "čáp",
+        img: "kos-sykorka-pav-cap.png",
+      },
+
   {
     north: "most",
     east: "míč",
