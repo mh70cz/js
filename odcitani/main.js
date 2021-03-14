@@ -359,7 +359,7 @@ function checkThirdInp() {
     thirdInpDiv.classList.add("result");
     btnDiv.innerHTML = "✓";
     btnDiv.classList.add("check-success");
-    createZeroInp();
+    finalMarkOperands_createZeroInp();
   } else {
     btnDiv.innerHTML = "X";
     btnDiv.classList.add("check-fail");
@@ -395,6 +395,22 @@ function checkZeroInp() {
       btnDiv.classList.add("btn");
     }, 1000);
   }
+}
+
+function finalMarkOperands_createZeroInp() {
+  const operTop = document.querySelector("#top-row > div:nth-child(3)");
+  const operBot_1 = document.querySelector("#bot-row > div:nth-child(3)");
+  const operBot_2 = document.querySelector("#bot-row > div:nth-child(5)");
+
+  setTimeout(()=>{  [operTop, operBot_1, operBot_2].forEach((item) => {
+    item.classList.add("mark");
+  });}, 1000)
+  
+  setTimeout(() => {  [operTop, operBot_1, operBot_2].forEach((item) => {
+    item.classList.remove("mark");
+
+    createZeroInp();
+  });}, 3500);
 }
 
 /*     window.scrollY + document.querySelector('#elementId').getBoundingClientRect().top // Y
