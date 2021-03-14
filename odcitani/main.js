@@ -2,8 +2,8 @@ const TOP_TOP = 0;
 const MID_TOP = 125;
 const BOT_TOP = 250;
 
-let firstMainOperand = 12;
-let secondMainOperand = 5;
+let firstMainOperand = null;
+let secondMainOperand = null;
 
 let mb = document.getElementById("moving-box");
 
@@ -15,6 +15,47 @@ let topRow = document.getElementById("top-row");
 let mi1Row = document.getElementById("mi1-row");
 let mi2Row = document.getElementById("mi2-row");
 let botRow = document.getElementById("bot-row");
+
+const taskArr = genTaskArr();
+
+setTask();
+
+function setTask() {
+  const rndIdx = Math.floor(Math.random() * taskArr.length);
+
+  firstMainOperand = taskArr[rndIdx][0];
+  secondMainOperand = taskArr[rndIdx][1];
+
+  topRow.innerHTML = `
+  <div class="operand">${firstMainOperand}</div>            
+  <div class="operator">-</div>
+  <div class="operand">${secondMainOperand}</div>
+  <div class="operator">=</div>
+  <div class="result hdn">&nbsp;</div>
+  <div class="btn hdn">
+    <button onclick="checkZeroInp()">✓</button>
+  </div>`;
+
+  mi1Row.innerHTML = "";
+  mi2Row.innerHTML = "";
+  botRow.innerHTML = "";
+
+  setTimeout(() => {
+    move_0();
+    setTimeout(move_1, 2000);
+  }, 2000);
+}
+
+function genTaskArr() {
+  let taskArr = [];
+  for (let outer_index = 11; outer_index < 19; outer_index++) {
+    for (let inner_index = outer_index - 9; inner_index < 10; inner_index++) {
+      //console.log(outer_index, inner_index);
+      taskArr.push([outer_index, inner_index]);
+    }
+  }
+  return taskArr;
+}
 
 function setMovingBox(top_pos, left_pos, txt = null) {
   //let mb = document.getElementById("moving-box");
@@ -60,7 +101,18 @@ function moveMovingBox(div, txt, vis = "visible", setValueDiv = true) {
 
 function move_0() {
   console.log("move 0 MovingBox on top-row 1st operand");
-  mi1Row.classList.remove("hdn");
+  mi1Row.innerHTML = `
+    <div class="operand">&nbsp;</div>
+    <div class="operator">-</div>
+    <div class="operand">&nbsp;</div>
+    <div class="operator">=</div>
+    <div class="inp hdn">
+        <input type="text" id="first-inp" value="" style="width: 20px;">
+    </div>
+    <div class="btn hdn">
+        <button onclick="checkFirstInp()">✓</button>
+    </div>
+  `;
 
   let topRow = document.getElementById("top-row");
   let topRow1operand = topRow.children[0];
@@ -90,7 +142,18 @@ function move_1() {
 
 function move_2() {
   console.log("move 2 MovingBox on top-row 2nd operand");
-  mi2Row.classList.remove("hdn");
+  mi2Row.innerHTML = `
+  <div class="operand">&nbsp;</div>
+  <div class="operator">-</div>
+  <div class="operand">&nbsp;</div>
+  <div class="operator">=</div>
+  <div class="inp hdn">
+      <input type="text" id="second-inp" value="" style="width: 20px;">
+  </div>
+  <div class="btn hdn">
+      <button onclick="checkSecondInp()">✓</button>
+  </div>
+  `;
 
   let topRow2operand = topRow.children[2];
   let txt = topRow2operand.innerHTML;
@@ -132,7 +195,20 @@ function move_5() {
 
 function move_5a() {
   console.log("move 5a MovingBox on top-row 1st operand");
-  botRow.classList.remove("hdn");
+  botRow.innerHTML = `
+  <div class="operand">&nbsp;</div>
+  <div class="operator">-</div>
+  <div class="operand">&nbsp;</div>
+  <div class="operator">-</div>
+  <div class="operand">&nbsp;</div>
+  <div class="operator">=</div>
+  <div class="inp hdn">
+      <input type="text" id="third-inp" value="" style="width: 20px;">
+  </div>
+  <div class="btn hdn">
+      <button onclick="checkThirdInp()">✓</button>
+  </div>
+  `;
 
   let topRow = document.getElementById("top-row");
   let topRow1operand = topRow.children[0];
@@ -308,6 +384,7 @@ function checkZeroInp() {
     zeroInpDiv.classList.add("result");
     btnDiv.innerHTML = "✓";
     btnDiv.classList.add("check-success");
+    setTimeout(setTask, 2000);
   } else {
     btnDiv.innerHTML = "X";
     btnDiv.classList.add("check-fail");
@@ -319,11 +396,6 @@ function checkZeroInp() {
     }, 1000);
   }
 }
-
-setTimeout(() => {
-  move_0();
-  setTimeout(move_1, 2000);
-}, 2000);
 
 /*     window.scrollY + document.querySelector('#elementId').getBoundingClientRect().top // Y
   
