@@ -328,6 +328,7 @@ function checkFirstInp() {
     cntEqu(false);
     setTimeout(() => {
       firstInp.value = "";
+      firstInp.focus();
       btnDiv.classList.remove("check-fail");
       btnDiv.innerHTML = '<button onclick="checkFirstInp()">✓</button>';
       btnDiv.classList.add("btn");
@@ -369,6 +370,7 @@ function checkSecondInp() {
     cntEqu(false);
     setTimeout(() => {
       secondInp.value = "";
+      secondInp.focus();
       btnDiv.classList.remove("check-fail");
       btnDiv.innerHTML = '<button onclick="checkSecondInp()">✓</button>';
       btnDiv.classList.add("btn");
@@ -396,6 +398,7 @@ function checkThirdInp() {
     cntEqu(false);
     setTimeout(() => {
       thirdInp.value = "";
+      thirdInp.focus();
       btnDiv.classList.remove("check-fail");
       btnDiv.innerHTML = '<button onclick="checkThirdInp()">✓</button>';
       btnDiv.classList.add("btn");
@@ -424,6 +427,7 @@ function checkZeroInp() {
     cntEqu(false);
     setTimeout(() => {
       zeroInp.value = "";
+      zeroInp.focus();
       btnDiv.classList.remove("check-fail");
       btnDiv.innerHTML = '<button onclick="checkZeroInp()">✓</button>';
       btnDiv.classList.add("btn");
