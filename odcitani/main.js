@@ -16,6 +16,11 @@ let mi1Row = document.getElementById("mi1-row");
 let mi2Row = document.getElementById("mi2-row");
 let botRow = document.getElementById("bot-row");
 
+let cntEquOk = 0;
+let cntEquKo = 0;
+let cntTasks = 0;
+let cntPoints = 0;
+
 const taskArr = genTaskArr();
 
 setTask();
@@ -40,6 +45,8 @@ function setTask() {
   mi2Row.innerHTML = "";
   botRow.innerHTML = "";
 
+  updateCounters();
+
   setTimeout(() => {
     move_0();
     setTimeout(move_1, 2000);
@@ -55,6 +62,24 @@ function genTaskArr() {
     }
   }
   return taskArr;
+}
+
+function cntEqu(res) {
+  if (res) {
+    cntEquOk += 1;
+    cntPoints += 1;
+  } else {
+    cntEquKo += 1;
+    cntPoints -= 4;
+  }
+  updateCounters();
+}
+
+function updateCounters() {
+  document.getElementById("cnt-tasks").innerText = cntTasks;
+  document.getElementById("cnt-equ-ok").innerText = cntEquOk;
+  document.getElementById("cnt-equ-ko").innerText = cntEquKo;
+  document.getElementById("cnt-points").innerText = cntPoints;
 }
 
 function setMovingBox(top_pos, left_pos, txt = null) {
@@ -288,6 +313,7 @@ function checkFirstInp() {
     firstInpDiv.classList.add("result");
     btnDiv.innerHTML = "✓";
     btnDiv.classList.add("check-success");
+    cntEqu(true);
     move_2();
     setTimeout(() => {
       move_3();
@@ -299,6 +325,7 @@ function checkFirstInp() {
   } else {
     btnDiv.innerHTML = "X";
     btnDiv.classList.add("check-fail");
+    cntEqu(false);
     setTimeout(() => {
       firstInp.value = "";
       btnDiv.classList.remove("check-fail");
@@ -320,6 +347,7 @@ function checkSecondInp() {
     secondInpDiv.classList.add("result");
     btnDiv.innerHTML = "✓";
     btnDiv.classList.add("check-success");
+    cntEqu(true);
 
     move_5a();
     setTimeout(() => {
@@ -338,6 +366,7 @@ function checkSecondInp() {
   } else {
     btnDiv.innerHTML = "X";
     btnDiv.classList.add("check-fail");
+    cntEqu(false);
     setTimeout(() => {
       secondInp.value = "";
       btnDiv.classList.remove("check-fail");
@@ -359,10 +388,12 @@ function checkThirdInp() {
     thirdInpDiv.classList.add("result");
     btnDiv.innerHTML = "✓";
     btnDiv.classList.add("check-success");
+    cntEqu(true);
     finalMarkOperands_createZeroInp();
   } else {
     btnDiv.innerHTML = "X";
     btnDiv.classList.add("check-fail");
+    cntEqu(false);
     setTimeout(() => {
       thirdInp.value = "";
       btnDiv.classList.remove("check-fail");
@@ -384,10 +415,13 @@ function checkZeroInp() {
     zeroInpDiv.classList.add("result");
     btnDiv.innerHTML = "✓";
     btnDiv.classList.add("check-success");
+    cntEqu(true);
+    cntTasks++;
     setTimeout(setTask, 2000);
   } else {
     btnDiv.innerHTML = "X";
     btnDiv.classList.add("check-fail");
+    cntEqu(false);
     setTimeout(() => {
       zeroInp.value = "";
       btnDiv.classList.remove("check-fail");
@@ -402,15 +436,19 @@ function finalMarkOperands_createZeroInp() {
   const operBot_1 = document.querySelector("#bot-row > div:nth-child(3)");
   const operBot_2 = document.querySelector("#bot-row > div:nth-child(5)");
 
-  setTimeout(()=>{  [operTop, operBot_1, operBot_2].forEach((item) => {
-    item.classList.add("mark");
-  });}, 1000)
-  
-  setTimeout(() => {  [operTop, operBot_1, operBot_2].forEach((item) => {
-    item.classList.remove("mark");
+  setTimeout(() => {
+    [operTop, operBot_1, operBot_2].forEach((item) => {
+      item.classList.add("mark");
+    });
+  }, 1000);
 
-    createZeroInp();
-  });}, 3500);
+  setTimeout(() => {
+    [operTop, operBot_1, operBot_2].forEach((item) => {
+      item.classList.remove("mark");
+
+      createZeroInp();
+    });
+  }, 3500);
 }
 
 /*     window.scrollY + document.querySelector('#elementId').getBoundingClientRect().top // Y
