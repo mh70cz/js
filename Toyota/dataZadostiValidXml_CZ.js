@@ -1,17 +1,47 @@
 // data zadosti do validniho xml CZ
-var elem = document.getElementById("writtenXml");
-var text_raw = elem.innerText;
+let elem = document.getElementById("writtenXml");
+let text_raw = elem.innerText;
 
-var text_proc = text_raw.replace(/^\s*/gm, "");
-var text_proc = text_proc.replace(/^-</gm, "<");
+let text_proc = text_raw.replace(/^\s*/gm, "");
+text_proc = text_proc.replace(/^-</gm, "<");
 
 //  e.g. <Tana.Dolakova@dolak.cz>
-var text_proc = text_proc.replace(/<.*@.*\.cz>/gm, "");
+text_proc = text_proc.replace(/<.*@.*\.cz>/gm, "");
 
 //ns2:getIsirWsCuzkDataResponse
-var text_proc = text_proc.replace(
+text_proc = text_proc.replace(
   /ns2:getIsirWsCuzkDataResponse/gm,
   "getIsirWsCuzkDataResponse"
 );
+
+
+let addXmlns = function (inStr) {
+    nsToAdd = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
+  
+    inStr = inStr.replace("\n", " ");
+  
+    let reRquElem = /<request RequestID.*>/gm;
+    let arrRe = reRquElem.exec(inStr);
+  
+    // console.log(arr);
+  
+    let rquElem = arrRe[0];
+  
+    // console.log(rquElem);
+  
+    if (!rquElem.includes("xmlns:xsi")) {
+      // console.log("neobsahuje xmlns:xsi");
+      rquElem = rquElem.replace(">", nsToAdd + " >");
+      let outStr = inStr.replace(reRquElem, rquElem);
+      console.log("added xmlns:xsi");
+      // console.log(outStr);
+      return outStr;
+    } else {
+      // console.log("uz obsahuje xmlns:xsi - neni co resit");
+      return inStr;
+    }
+  };
+
+text_proc = addXmlns(text_proc);
 
 copy(text_proc);
