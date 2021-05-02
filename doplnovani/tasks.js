@@ -1,37 +1,10 @@
 tasks = [
-
-    {
-        north: "kos",
-        east: "sýkorka",
-        south: "páv",
-        west: "čáp",
-        img: "kos-sykorka-pav-cap.png",
-      },
-
   {
-    north: "most",
-    east: "míč",
-    south: "duha",
-    west: "meloun",
-    img: "most-mic-duha-meloun.png",
-  },
-
-  // kedluben / kedlubna
-  {
-    north: "mrkev",
-    east: "kedluben",
-    south: "okurka",
-    west: "rajče",
-    img: "mrkev-kedluben-okurka-rajce.png",
-  },
-
-  //měkčení DI, TĚ
-  {
-    north: "kladivo",
-    east: "kleště",
-    south: "pila",
-    west: "šroubovák",
-    img: "kladivo-kleste-pila-sroubovak.png",
+    north: "kos",
+    east: "sýkorka",
+    south: "páv",
+    west: "čáp",
+    img: "kos-sykorka-pav-cap.png",
   },
 
   {
@@ -40,6 +13,14 @@ tasks = [
     south: "válec",
     west: "jeřáb",
     img: "bagr-buldozer-valec-jerab.png",
+  },
+
+  {
+    north: "most",
+    east: "míč",
+    south: "duha",
+    west: "meloun",
+    img: "most-mic-duha-meloun.png",
   },
 
   {
@@ -160,5 +141,23 @@ tasks = [
     south: "jih",
     west: "západ",
     img: "svetStrany.png",
+  },
+
+  // kedluben / kedlubna
+  {
+    north: "mrkev",
+    east: "kedluben",
+    south: "okurka",
+    west: "rajče",
+    img: "mrkev-kedluben-okurka-rajce.png",
+  },
+
+  //měkčení DI, TĚ
+  {
+    north: "kladivo",
+    east: "kleště",
+    south: "pila",
+    west: "šroubovák",
+    img: "kladivo-kleste-pila-sroubovak.png",
   },
 ];
