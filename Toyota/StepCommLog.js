@@ -1,11 +1,13 @@
 // obsah Step communication log do validniho xml
-var elem = document.getElementById("obsahStr");
-var text_raw = elem.innerText;
+let elem = document.getElementById("obsahStr");
+let text_raw = elem.innerText;
  
-var text_proc =  text_raw.replace(/^\s*/gm, "");
-var text_proc =  text_proc.replace(/^-</gm, "<");
+let text_proc =  text_raw.replace(/^\s*/gm, "");
+text_proc =  text_proc.replace(/^-</gm, "<");
 
-var text_proc =  text_proc.replace(" Report in new window", "");
-var text_proc =  text_proc.replace(/<ResidualValueMatrix.*>/g, "<ResidualValueMatrix>");
+text_proc =  text_proc.replace(" Report in new window", "");
+text_proc =  text_proc.replace(/<ResidualValueMatrix.*>/g, "<ResidualValueMatrix>");
+
+text_proc =  text_proc.replace(/TypeName="="Rozsah/gm, 'TypeName="Rozsah');
 
 copy(text_proc);
