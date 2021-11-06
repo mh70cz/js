@@ -85,11 +85,11 @@ function generate_rc(dob_raw, order_raw, sex="M", add20=false){
 
     
     order_raw = order_raw.trim();
-    if (order_raw.lengt > 3){
+    if (order_raw.length > 3){
         order_raw = order_raw.slice(0,3);
     }
     
-    order;
+    //order;
     if (isNaN(order_raw)){
         rcObj.note="Nevalidní pořadové číslo";
         return rcObj;
