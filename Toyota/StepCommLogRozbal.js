@@ -1,6 +1,6 @@
 // Step communication log  rozbal elementy + konvertuj obsah do validniho xml + vysledek do clipboardu
 
-let elemsToOpen = querySelectorIncludesText("a", "+");
+let elemsToOpen = querySelectorHasText("a", "+");
 
 // console.log(elemsToOpen);
 elemsToOpen.forEach((element) => element.click());
@@ -9,10 +9,10 @@ console.log("opened");
 
 setTimeout(replaceAndCopy(), 2000); // staci i min nez 2000
 
-function querySelectorIncludesText(selector, text) {
+function querySelectorHasText(selector, text) {
   return Array.from(document.querySelectorAll(selector)).filter(
     (el) => el.textContent == text
-  ); //.filter(el => el.textContent.includes(text));
+  ); // verze has -> includes .filter(el => el.textContent.includes(text));
 }
 
 function replaceAndCopy() {
