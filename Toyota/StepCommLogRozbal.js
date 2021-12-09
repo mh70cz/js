@@ -32,6 +32,11 @@ function replaceAndCopy() {
 
   text_proc = text_proc.replace(/TypeName="="Rozsah/gm, 'TypeName="Rozsah');
 
+  text_proc = text_proc.replace(/C & K, a.s./gm, 'C a K, a.s.');
+
+  text_proc = text_proc.replace(/ "[ZH]P_BASE" Insure/gm, ' ZP_BASE Insure');
+  //text_proc = text_proc.replace(/(?<=^<Filter.*) "[ZH]P_BASE" Insure/gm, ' ZP_BASE Insure'); //mene agresivni, ale pomale
+
   copy(text_proc);
 
   console.log("copied");
