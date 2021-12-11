@@ -20,6 +20,8 @@ text_proc = text_proc.replace(/"0" km./gm,"0 km.");
 
 text_proc = text_proc.replace(/"GŘ""/gm,'GŘ"');
 
+text_proc = text_proc.replace(/C & K, a.s./gm, 'C a K, a.s.');
+
 let addXmlns = function (inStr) {
     nsToAdd = 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"';
   
