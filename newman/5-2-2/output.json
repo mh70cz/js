@@ -1,0 +1,870 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "634cd2d1-b3eb-4d9a-8679-9b0150c86868",
+      "exporter_id": "34471460"
+    },
+    "item": [
+      {
+        "id": "61971023-210c-47aa-a637-3c6825d0646c",
+        "name": "REST_Get_data",
+        "request": {
+          "description": {
+            "content": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.",
+            "type": "text/plain"
+          },
+          "url": {
+            "path": [
+              "v1"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [
+              {
+                "key": "{{finalParams}}",
+                "value": null
+              }
+            ],
+            "variable": []
+          },
+          "method": "GET",
+          "auth": {
+            "type": "basic",
+            "basic": [
+              {
+                "type": "string",
+                "value": "{{Password}}",
+                "key": "password"
+              },
+              {
+                "type": "string",
+                "value": "{{Username}}",
+                "key": "username"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "e428e709-53ba-4364-be29-87667d8ba19e",
+              "type": "text/javascript",
+              "exec": [
+                "",
+                "/*",
+                "pm.test(\"Status code is 200\", function () {",
+                "    pm.response.to.have.status(200);",
+                "});",
+                "*/"
+              ],
+              "_lastExecutionId": "48d1d3a1-3f37-41af-bd1a-b71667efbf5d"
+            }
+          },
+          {
+            "listen": "prerequest",
+            "script": {
+              "id": "9c2a7651-fc6d-433c-88b6-242acc0ce9cf",
+              "type": "text/javascript",
+              "exec": [
+                "// LIVE(?) paid\r",
+                "//pm.variables.set(\"Username\",\"13886240\");\r",
+                "//pm.variables.set(\"Password\",\"asdKJ96MpQ\");\r",
+                "\r",
+                "// test only for simple mock data \r",
+                "// pm.variables.set(\"Username\",\"210257/test\");\r",
+                "// pm.variables.set(\"Password\",\"6dKm3Tin0K5J\");\r",
+                "// pm.variables.set(\"Email\",\"mock.example@creditinfo.com\");\r",
+                "// pm.variables.set(\"FirstName\",\"Firstname1\");\r",
+                "// pm.variables.set(\"LastName\",\"Lastname1\");\r",
+                "// pm.variables.set(\"Phone\",\"+420789456123\");\r",
+                "\r",
+                "pm.variables.set('base_url', \"https://api.creditinfo.ee/services/fraudScore\");\r",
+                "\r",
+                "let params = {}\r",
+                "\r",
+                "const Email =  pm.variables.get(\"Email\");\r",
+                "if (Email){\r",
+                "    params[\"email\"] = Email;\r",
+                "} else {\r",
+                "    console.log(\"Missing mandatory param email.\")\r",
+                "}\r",
+                "\r",
+                "const FirstName =  pm.variables.get(\"FirstName\");\r",
+                "if (FirstName){\r",
+                "    params[\"firstName\"] = FirstName;\r",
+                "}\r",
+                "\r",
+                "const LastName =  pm.variables.get(\"LastName\");\r",
+                "if (LastName){\r",
+                "    params[\"lastName\"] = LastName;\r",
+                "}\r",
+                "\r",
+                "const Phone =  pm.variables.get(\"Phone\");\r",
+                "if (Phone){\r",
+                "    params[\"phone\"] = Phone;\r",
+                "}\r",
+                "\r",
+                "// Loop through the params object and push each key-value pair as a query string element\r",
+                "let finalParamsArr = [];\r",
+                "for (let key in params) {\r",
+                "    if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {\r",
+                "        // Encode both the key and value to ensure they are URL-safe\r",
+                "        finalParamsArr.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(params[key]));\r",
+                "    }\r",
+                "}\r",
+                "// Join the array into a query string\r",
+                "let finalParams = finalParamsArr.join(\"&\");\r",
+                "\r",
+                "pm.variables.set('finalParams', finalParams);\r",
+                "\r",
+                "console.log(pm.variables.get('finalParams'));\r",
+                "\r",
+                "//pm.variables.set('base_url', \"www.something.tld\");\r",
+                "//pm.execution.skipRequest() ;"
+              ],
+              "_lastExecutionId": "c7d424a8-2aa5-4e3d-965e-826e74d67e23"
+            }
+          }
+        ]
+      }
+    ],
+    "auth": {
+      "type": "basic",
+      "basic": [
+        {
+          "type": "string",
+          "value": "{{Password}}",
+          "key": "password"
+        },
+        {
+          "type": "string",
+          "value": "{{Username}}",
+          "key": "username"
+        }
+      ]
+    },
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "1912fe8c-6835-400e-aa34-7112dac0b0a9",
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ],
+          "_lastExecutionId": "cc343333-b78e-472b-9e73-2f783c17591f"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "30a25af9-ea7f-4af3-a916-74cade75e0a5",
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ],
+          "_lastExecutionId": "b63c5282-47e6-4d1e-a8a2-e2d9254c3b25"
+        }
+      }
+    ],
+    "variable": [],
+    "info": {
+      "_postman_id": "634cd2d1-b3eb-4d9a-8679-9b0150c86868",
+      "name": "EST_Email_fraud_score_x",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "description": {
+        "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+        "type": "text/plain"
+      }
+    }
+  },
+  "environment": {
+    "id": "51a98f6d-cb9d-414a-9d60-deebe2b002e9",
+    "values": []
+  },
+  "globals": {
+    "_": {
+      "postman_variable_scope": "globals",
+      "postman_exported_at": "2024-10-23T13:00:37.601Z",
+      "postman_exported_using": "Newman/5.2.2"
+    },
+    "id": "13ac588b-3e2f-4744-8ff0-8941a6fac1ca",
+    "name": "globals",
+    "values": [
+      {
+        "type": "any",
+        "value": "",
+        "key": "id"
+      },
+      {
+        "type": "any",
+        "value": "210257/test",
+        "key": "Username"
+      },
+      {
+        "type": "any",
+        "value": "6dKm3Tin0K5J",
+        "key": "Password"
+      },
+      {
+        "type": "any",
+        "value": "mock.example@creditinfo.com",
+        "key": "Email"
+      }
+    ]
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 1
+      },
+      "tests": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 2,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 0,
+      "responseMin": 0,
+      "responseMax": 0,
+      "responseSd": 0,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1729688798563,
+      "completed": 1729688820313
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "850628b8-9f18-4cc5-a3f3-65c8adfbb466",
+          "httpRequestId": "f2baa081-9d49-4d7b-bab5-9964d67239d1"
+        },
+        "item": {
+          "id": "61971023-210c-47aa-a637-3c6825d0646c",
+          "name": "REST_Get_data",
+          "request": {
+            "description": {
+              "content": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [
+                {
+                  "key": "{{finalParams}}",
+                  "value": null
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "type": "string",
+                  "value": "{{Password}}",
+                  "key": "password"
+                },
+                {
+                  "type": "string",
+                  "value": "{{Username}}",
+                  "key": "username"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "e428e709-53ba-4364-be29-87667d8ba19e",
+                "type": "text/javascript",
+                "exec": [
+                  "",
+                  "/*",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "*/"
+                ],
+                "_lastExecutionId": "48d1d3a1-3f37-41af-bd1a-b71667efbf5d"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "9c2a7651-fc6d-433c-88b6-242acc0ce9cf",
+                "type": "text/javascript",
+                "exec": [
+                  "// LIVE(?) paid\r",
+                  "//pm.variables.set(\"Username\",\"13886240\");\r",
+                  "//pm.variables.set(\"Password\",\"asdKJ96MpQ\");\r",
+                  "\r",
+                  "// test only for simple mock data \r",
+                  "// pm.variables.set(\"Username\",\"210257/test\");\r",
+                  "// pm.variables.set(\"Password\",\"6dKm3Tin0K5J\");\r",
+                  "// pm.variables.set(\"Email\",\"mock.example@creditinfo.com\");\r",
+                  "// pm.variables.set(\"FirstName\",\"Firstname1\");\r",
+                  "// pm.variables.set(\"LastName\",\"Lastname1\");\r",
+                  "// pm.variables.set(\"Phone\",\"+420789456123\");\r",
+                  "\r",
+                  "pm.variables.set('base_url', \"https://api.creditinfo.ee/services/fraudScore\");\r",
+                  "\r",
+                  "let params = {}\r",
+                  "\r",
+                  "const Email =  pm.variables.get(\"Email\");\r",
+                  "if (Email){\r",
+                  "    params[\"email\"] = Email;\r",
+                  "} else {\r",
+                  "    console.log(\"Missing mandatory param email.\")\r",
+                  "}\r",
+                  "\r",
+                  "const FirstName =  pm.variables.get(\"FirstName\");\r",
+                  "if (FirstName){\r",
+                  "    params[\"firstName\"] = FirstName;\r",
+                  "}\r",
+                  "\r",
+                  "const LastName =  pm.variables.get(\"LastName\");\r",
+                  "if (LastName){\r",
+                  "    params[\"lastName\"] = LastName;\r",
+                  "}\r",
+                  "\r",
+                  "const Phone =  pm.variables.get(\"Phone\");\r",
+                  "if (Phone){\r",
+                  "    params[\"phone\"] = Phone;\r",
+                  "}\r",
+                  "\r",
+                  "// Loop through the params object and push each key-value pair as a query string element\r",
+                  "let finalParamsArr = [];\r",
+                  "for (let key in params) {\r",
+                  "    if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {\r",
+                  "        // Encode both the key and value to ensure they are URL-safe\r",
+                  "        finalParamsArr.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(params[key]));\r",
+                  "    }\r",
+                  "}\r",
+                  "// Join the array into a query string\r",
+                  "let finalParams = finalParamsArr.join(\"&\");\r",
+                  "\r",
+                  "pm.variables.set('finalParams', finalParams);\r",
+                  "\r",
+                  "console.log(pm.variables.get('finalParams'));\r",
+                  "\r",
+                  "//pm.variables.set('base_url', \"www.something.tld\");\r",
+                  "//pm.execution.skipRequest() ;"
+                ],
+                "_lastExecutionId": "c7d424a8-2aa5-4e3d-965e-826e74d67e23"
+              }
+            }
+          ]
+        },
+        "request": {
+          "description": {
+            "content": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.",
+            "type": "text/plain"
+          },
+          "url": {
+            "protocol": "https",
+            "path": [
+              "services",
+              "fraudScore",
+              "v1"
+            ],
+            "host": [
+              "api",
+              "creditinfo",
+              "ee"
+            ],
+            "query": [
+              {
+                "key": "email",
+                "value": "mock.example%40creditinfo.com"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Basic MjEwMjU3L3Rlc3Q6NmRLbTNUaW4wSzVK",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.26.10",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "09f9feb3-b371-439c-afa8-d8aad6dcda2e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "api.creditinfo.ee",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET",
+          "auth": {
+            "type": "basic",
+            "basic": [
+              {
+                "type": "string",
+                "value": "6dKm3Tin0K5J",
+                "key": "password"
+              },
+              {
+                "type": "string",
+                "value": "210257/test",
+                "key": "username"
+              }
+            ]
+          }
+        },
+        "id": "61971023-210c-47aa-a637-3c6825d0646c",
+        "requestError": {
+          "code": "ETIMEDOUT"
+        }
+      }
+    ],
+    "transfers": {
+      "responseTotal": 0
+    },
+    "failures": [
+      {
+        "error": {
+          "code": "ETIMEDOUT",
+          "name": "AggregateError",
+          "message": "",
+          "stack": "AggregateError [ETIMEDOUT]: \n    at internalConnectMultiple (node:net:1118:18)\n    at afterConnectMultiple (node:net:1685:7)",
+          "checksum": "b876b78da429b8a81fd594f44a27db65",
+          "id": "593cf98d-a308-45dc-8777-f426c2e75dee",
+          "timestamp": 1729688820268,
+          "stacktrace": [
+            {
+              "fileName": "node:net",
+              "lineNumber": 1118,
+              "functionName": "internalConnectMultiple",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 18,
+              "native": false
+            },
+            {
+              "fileName": "node:net",
+              "lineNumber": 1685,
+              "functionName": "afterConnectMultiple",
+              "typeName": "Object",
+              "methodName": null,
+              "columnNumber": 7,
+              "native": false
+            }
+          ]
+        },
+        "at": "request",
+        "source": {
+          "id": "61971023-210c-47aa-a637-3c6825d0646c",
+          "name": "REST_Get_data",
+          "request": {
+            "description": {
+              "content": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [
+                {
+                  "key": "{{finalParams}}",
+                  "value": null
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "type": "string",
+                  "value": "{{Password}}",
+                  "key": "password"
+                },
+                {
+                  "type": "string",
+                  "value": "{{Username}}",
+                  "key": "username"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "e428e709-53ba-4364-be29-87667d8ba19e",
+                "type": "text/javascript",
+                "exec": [
+                  "",
+                  "/*",
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "*/"
+                ],
+                "_lastExecutionId": "48d1d3a1-3f37-41af-bd1a-b71667efbf5d"
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "9c2a7651-fc6d-433c-88b6-242acc0ce9cf",
+                "type": "text/javascript",
+                "exec": [
+                  "// LIVE(?) paid\r",
+                  "//pm.variables.set(\"Username\",\"13886240\");\r",
+                  "//pm.variables.set(\"Password\",\"asdKJ96MpQ\");\r",
+                  "\r",
+                  "// test only for simple mock data \r",
+                  "// pm.variables.set(\"Username\",\"210257/test\");\r",
+                  "// pm.variables.set(\"Password\",\"6dKm3Tin0K5J\");\r",
+                  "// pm.variables.set(\"Email\",\"mock.example@creditinfo.com\");\r",
+                  "// pm.variables.set(\"FirstName\",\"Firstname1\");\r",
+                  "// pm.variables.set(\"LastName\",\"Lastname1\");\r",
+                  "// pm.variables.set(\"Phone\",\"+420789456123\");\r",
+                  "\r",
+                  "pm.variables.set('base_url', \"https://api.creditinfo.ee/services/fraudScore\");\r",
+                  "\r",
+                  "let params = {}\r",
+                  "\r",
+                  "const Email =  pm.variables.get(\"Email\");\r",
+                  "if (Email){\r",
+                  "    params[\"email\"] = Email;\r",
+                  "} else {\r",
+                  "    console.log(\"Missing mandatory param email.\")\r",
+                  "}\r",
+                  "\r",
+                  "const FirstName =  pm.variables.get(\"FirstName\");\r",
+                  "if (FirstName){\r",
+                  "    params[\"firstName\"] = FirstName;\r",
+                  "}\r",
+                  "\r",
+                  "const LastName =  pm.variables.get(\"LastName\");\r",
+                  "if (LastName){\r",
+                  "    params[\"lastName\"] = LastName;\r",
+                  "}\r",
+                  "\r",
+                  "const Phone =  pm.variables.get(\"Phone\");\r",
+                  "if (Phone){\r",
+                  "    params[\"phone\"] = Phone;\r",
+                  "}\r",
+                  "\r",
+                  "// Loop through the params object and push each key-value pair as a query string element\r",
+                  "let finalParamsArr = [];\r",
+                  "for (let key in params) {\r",
+                  "    if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {\r",
+                  "        // Encode both the key and value to ensure they are URL-safe\r",
+                  "        finalParamsArr.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(params[key]));\r",
+                  "    }\r",
+                  "}\r",
+                  "// Join the array into a query string\r",
+                  "let finalParams = finalParamsArr.join(\"&\");\r",
+                  "\r",
+                  "pm.variables.set('finalParams', finalParams);\r",
+                  "\r",
+                  "console.log(pm.variables.get('finalParams'));\r",
+                  "\r",
+                  "//pm.variables.set('base_url', \"www.something.tld\");\r",
+                  "//pm.execution.skipRequest() ;"
+                ],
+                "_lastExecutionId": "c7d424a8-2aa5-4e3d-965e-826e74d67e23"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "634cd2d1-b3eb-4d9a-8679-9b0150c86868",
+            "exporter_id": "34471460"
+          },
+          "item": [
+            {
+              "id": "61971023-210c-47aa-a637-3c6825d0646c",
+              "name": "REST_Get_data",
+              "request": {
+                "description": {
+                  "content": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data.",
+                  "type": "text/plain"
+                },
+                "url": {
+                  "path": [
+                    "v1"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "{{finalParams}}",
+                      "value": null
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "basic",
+                  "basic": [
+                    {
+                      "type": "string",
+                      "value": "{{Password}}",
+                      "key": "password"
+                    },
+                    {
+                      "type": "string",
+                      "value": "{{Username}}",
+                      "key": "username"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "e428e709-53ba-4364-be29-87667d8ba19e",
+                    "type": "text/javascript",
+                    "exec": [
+                      "",
+                      "/*",
+                      "pm.test(\"Status code is 200\", function () {",
+                      "    pm.response.to.have.status(200);",
+                      "});",
+                      "*/"
+                    ],
+                    "_lastExecutionId": "48d1d3a1-3f37-41af-bd1a-b71667efbf5d"
+                  }
+                },
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "9c2a7651-fc6d-433c-88b6-242acc0ce9cf",
+                    "type": "text/javascript",
+                    "exec": [
+                      "// LIVE(?) paid\r",
+                      "//pm.variables.set(\"Username\",\"13886240\");\r",
+                      "//pm.variables.set(\"Password\",\"asdKJ96MpQ\");\r",
+                      "\r",
+                      "// test only for simple mock data \r",
+                      "// pm.variables.set(\"Username\",\"210257/test\");\r",
+                      "// pm.variables.set(\"Password\",\"6dKm3Tin0K5J\");\r",
+                      "// pm.variables.set(\"Email\",\"mock.example@creditinfo.com\");\r",
+                      "// pm.variables.set(\"FirstName\",\"Firstname1\");\r",
+                      "// pm.variables.set(\"LastName\",\"Lastname1\");\r",
+                      "// pm.variables.set(\"Phone\",\"+420789456123\");\r",
+                      "\r",
+                      "pm.variables.set('base_url', \"https://api.creditinfo.ee/services/fraudScore\");\r",
+                      "\r",
+                      "let params = {}\r",
+                      "\r",
+                      "const Email =  pm.variables.get(\"Email\");\r",
+                      "if (Email){\r",
+                      "    params[\"email\"] = Email;\r",
+                      "} else {\r",
+                      "    console.log(\"Missing mandatory param email.\")\r",
+                      "}\r",
+                      "\r",
+                      "const FirstName =  pm.variables.get(\"FirstName\");\r",
+                      "if (FirstName){\r",
+                      "    params[\"firstName\"] = FirstName;\r",
+                      "}\r",
+                      "\r",
+                      "const LastName =  pm.variables.get(\"LastName\");\r",
+                      "if (LastName){\r",
+                      "    params[\"lastName\"] = LastName;\r",
+                      "}\r",
+                      "\r",
+                      "const Phone =  pm.variables.get(\"Phone\");\r",
+                      "if (Phone){\r",
+                      "    params[\"phone\"] = Phone;\r",
+                      "}\r",
+                      "\r",
+                      "// Loop through the params object and push each key-value pair as a query string element\r",
+                      "let finalParamsArr = [];\r",
+                      "for (let key in params) {\r",
+                      "    if (params.hasOwnProperty(key) && params[key] !== undefined && params[key] !== null) {\r",
+                      "        // Encode both the key and value to ensure they are URL-safe\r",
+                      "        finalParamsArr.push(encodeURIComponent(key) + \"=\" + encodeURIComponent(params[key]));\r",
+                      "    }\r",
+                      "}\r",
+                      "// Join the array into a query string\r",
+                      "let finalParams = finalParamsArr.join(\"&\");\r",
+                      "\r",
+                      "pm.variables.set('finalParams', finalParams);\r",
+                      "\r",
+                      "console.log(pm.variables.get('finalParams'));\r",
+                      "\r",
+                      "//pm.variables.set('base_url', \"www.something.tld\");\r",
+                      "//pm.execution.skipRequest() ;"
+                    ],
+                    "_lastExecutionId": "c7d424a8-2aa5-4e3d-965e-826e74d67e23"
+                  }
+                }
+              ]
+            }
+          ],
+          "auth": {
+            "type": "basic",
+            "basic": [
+              {
+                "type": "string",
+                "value": "{{Password}}",
+                "key": "password"
+              },
+              {
+                "type": "string",
+                "value": "{{Username}}",
+                "key": "username"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "1912fe8c-6835-400e-aa34-7112dac0b0a9",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "cc343333-b78e-472b-9e73-2f783c17591f"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "30a25af9-ea7f-4af3-a916-74cade75e0a5",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ],
+                "_lastExecutionId": "b63c5282-47e6-4d1e-a8a2-e2d9254c3b25"
+              }
+            }
+          ],
+          "variable": [],
+          "info": {
+            "_postman_id": "634cd2d1-b3eb-4d9a-8679-9b0150c86868",
+            "name": "EST_Email_fraud_score_x",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+            "description": {
+              "content": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+              "type": "text/plain"
+            }
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 1,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "850628b8-9f18-4cc5-a3f3-65c8adfbb466",
+          "httpRequestId": "f2baa081-9d49-4d7b-bab5-9964d67239d1"
+        }
+      }
+    ],
+    "error": null
+  }
+}

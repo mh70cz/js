@@ -1,0 +1,26 @@
+{
+  "id": "13ac588b-3e2f-4744-8ff0-8941a6fac1ca",
+  "values": [
+    {
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "Username",
+			"value": "210257/test"
+		},
+		{
+			"key": "Password",
+			"value": "6dKm3Tin0K5J"
+		},
+		{
+			"key": "Email",
+			"value": "mock.example@creditinfo.com"
+		}
+
+  ],
+  "name": "globals",
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2024-10-23T13:00:37.601Z",
+  "_postman_exported_using": "Newman/5.2.2"
+}

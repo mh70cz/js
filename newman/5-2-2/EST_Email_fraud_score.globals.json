@@ -1,0 +1,28 @@
+{
+    "id": "your-globals-id",
+    "name": "My Globals",
+    "values": [
+      {
+        "key": "Username",
+        "value": "210257/test",
+        "type": "text",
+        "enabled": true
+      },
+      {
+        "key": "Password",
+        "value": "6dKm3Tin0K5J",
+        "type": "text",
+        "enabled": true
+      },
+      {
+        "key": "Email",
+        "value": "mock.example@creditinfo.com",
+        "type": "text",
+        "enabled": true
+      }
+    ],
+    "timestamp": 0,
+    "_postman_variable_scope": "globals",
+    "_postman_exported_at": "2024-10-23T00:00:00.000Z",
+    "_postman_exported_using": "Postman/10.0.0"
+  }
