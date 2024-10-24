@@ -19,7 +19,7 @@
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});\r",
-							"console.log('Response from ' + pm.info.requestName + ':', pm.response.text());\r",
+							"//console.log('Response from ' + pm.info.requestName + ':', pm.response.text());\r",
 							"/*",
 							"*/"
 						],
@@ -172,20 +172,15 @@
 		},
 		{
 			"key": "Username",
-			"valueX": "210257/test",
-			"value": ""
+			"value": "210257/test"
 		},
 		{
 			"key": "Password",
-			"valueX": "6dKm3Tin0K5J",
-			"value": ""
+			"value": "6dKm3Tin0K5J"
 		},
 		{
 			"key": "Email",
-			"valueM": "mock.example@creditinfo.com",
-			"valueY": "aaa@seznam.cz",
-			"valueE": "",
-			"value": ""
+			"value": "mock.example@creditinfo.com"
 		},
 		{
 			"key": "FirstName",
